@@ -173,7 +173,7 @@
       <div id="call" style="margin-top:clamp(40px,6vw,56px);max-width:70ch">
         <p class="eyebrow"><span class="sq"></span>Before your call</p>
         <p>The call is on Google Meet and works best from a computer or iPad, so Tom can share his screen. There's nothing to prepare.</p>
-        <p>Questions before then: Tom King, <a href="mailto:tom@unlockdd.com" style="color:var(--accent-ink)">tom@unlockdd.com</a></p>
+        <p>Questions before then: Tom King, <span id="email" style="user-select:all">tom@unlockdd.com</span><button class="no-print" id="copyEmail" type="button" style="background:none;border:1px solid var(--line);color:var(--muted);font:inherit;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;margin-left:8px;cursor:pointer">Copy</button></p>
         <p class="note">Need a different time? <a href="https://calendly.com/tom-unlockdd/unlock-company-call" target="_blank" rel="noopener">Reschedule your call</a> <span class="tbc">booking link to confirm</span></p>
       </div>
     </div>
@@ -203,5 +203,13 @@
 </footer>
 
 <script src="/_assets/unlock-page.js"></script>
+<script>
+// Copy button for the email address, as in the source (Draft V10): the address is plain text, not an email link.
+(function(){var b=document.getElementById("copyEmail"),a=document.getElementById("email");if(!b||!a)return;
+  b.addEventListener("click",function(){var t=a.textContent;
+    function sel(){var r=document.createRange();r.selectNodeContents(a);var s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Selected";}
+    try{navigator.clipboard.writeText(t).then(function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy"},1800)},sel)}catch(e){sel()}});
+})();
+</script>
 </body>
 </html>
