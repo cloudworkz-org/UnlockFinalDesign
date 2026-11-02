@@ -51,7 +51,7 @@
   </style>
 </head>
 <body>
-  <div class="gate">
+  <div class="gate" data-statement-version="2026-06-30-v1">
     <a class="brand" href="https://unlockdd.com">
       <img src="/investors/assets/unlock-white.svg" alt="Unlock">
       <span class="dot">.</span>
@@ -128,7 +128,7 @@
         const res = await fetch('/api/certify', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ type, next }),
+          body: JSON.stringify({ type, next, statementVersion: document.querySelector('.gate').dataset.statementVersion }),
         });
         const data = await res.json();
         if (!res.ok || !data.ok) {
