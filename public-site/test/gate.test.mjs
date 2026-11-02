@@ -57,7 +57,9 @@ test("guard: no cookie / tampered / expired / old version / wrong secret -> gate
   await redir(ck(await mk({ type: "hnw", v: STATEMENT_VERSION, iat: now - 2 * TTL_MS, exp: now - TTL_MS })));
   await redir(ck(await mk({ type: "hnw", v: "old", iat: now, exp: now + TTL_MS })));
   await redir(ck(await mk({ type: "hnw", v: STATEMENT_VERSION, iat: now, exp: now + 3 * TTL_MS })));
-  await redir(ck(await mk({ type: "hnw", v: STATEMENT_VERSION, iat: now, exp: now + TTL_MS })), "/investors/x.json");
+  // Non-certified visitors cannot fetch non-HTML files either (a valid cookie can: see data.json above).
+  await redir(undefined, "/investors/x.json");
+  await redir(ck(valid.slice(0, -2) + "xx"), "/investors/x.json");
 });
 
 test("guard: gate + its assets open; other files gated", async () => {
