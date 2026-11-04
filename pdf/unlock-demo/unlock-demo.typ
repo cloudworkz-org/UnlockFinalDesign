@@ -95,12 +95,12 @@
 #section[
   #eyebrow[Why Unlock exists]
   #lead[Managing your own investments has always meant making your own decisions. Over the past ten years those decisions have become harder: pension, tax and inheritance rules now affect each other, they keep changing, and joining them up is left to you.]
-  #lead[Unlock is a decision-intelligence service for individual UK private investors who stay responsible for their own financial position. It gives you a live view of all your assets: regulated investments such as stocks, pensions and bonds, as well as unregulated investments such as property, gold and crypto. That view helps you make more informed decisions and see their effect across areas such as tax and retirement, with the sources, assumptions, uncertainty and next step always in view.]
+  #lead[Unlock provides structured decision support for High Net Worth and self-certified sophisticated investors who stay responsible for their own financial position. It gives you one view of all your assets: regulated investments such as stocks, pensions and bonds, as well as unregulated investments such as property, gold and crypto. That view helps you make more informed decisions and see their effect across areas such as tax and retirement, with the sources, assumptions, uncertainty and next step always in view.]
 ]
 
 // 03 Questions
 #section[
-  #eyebrow[Financial Intelligence]
+  #eyebrow[Structured decision support]
   == Questions that Unlock is helping investors answer#dot
   #questions(
     ("i.", "Can my assets support the income I want?",
@@ -121,17 +121,17 @@
 // 04 Five things you will see
 #section[
   == Five things you will see#dot
-  #lead[You and Tom choose one of several example investors together, such as a couple nearing retirement, a founder after selling a business, or a property landlord, and follow them through Unlock. It all uses sample information.]
+  #lead[Together we choose one of several example investors, such as a couple nearing retirement, a founder after selling a business, or a property landlord, and follow them through Unlock. It all uses sample information.]
   #v(6pt)
   #block(width: 100%, stroke: (top: 0.5pt + rule))[
     #stage("01", "Your whole picture", "Everything the example investor owns in one place, from pensions and investments to property and the harder-to-value things, set up around their reasons for using Unlock. Every page has Learn and Ask, for an explanation or a question about what is on screen.")
     #stage("02", "How it holds up", "How that mix of holdings has behaved in past good and bad times, including the worst and best cases, and how it compares with other portfolios.")
-    #stage("03", "Before you invest", "What an EIS programme could look like as a range of outcomes rather than a promise, and how a company's claims stand up against the evidence: what is supported, what is still open, and the questions to ask.")
+    #stage("03", "The impact of EIS", "What an EIS programme could look like as a range of outcomes rather than a promise, and how a company's claims stand up against the evidence: what is supported, what is still open, and the questions to ask.")
     #stage("04", "Income for life", "What those assets could provide year by year in retirement, with everything included.")
-    #stage("05", "For the people closest to you", "Heartbeat. If you don't log in for a set period, Unlock contacts the people you have chosen, so they can find your financial picture and where everything is. It was built at the request of our founding investors.")
+    #stage("05", "For the people closest to you", "Heartbeat. If you don't log in for a set period, Unlock contacts the people you have chosen, so they can find your financial picture and where everything is. Our founding investors asked for it.")
   ]
   #v(12pt)
-  #text(size: 10pt, fill: body-ink)[Tom will spend longer on what matters most to you. If you have brought a challenge, Tom will note it at the end. If you would also like to know more about the company behind Unlock, he can offer a company call (45 minutes) about the company behind it. There is no obligation.]
+  #text(size: 10pt, fill: body-ink)[We will spend longer on what matters most to you. If you have brought a challenge (see below), we will cover it at the end. If you would also like to know more about the company behind Unlock, we can offer a company call (45 minutes). There is no obligation.]
 ]
 
 // 05 Bring us a challenge
@@ -148,8 +148,8 @@
   #block(width: 100%, stroke: 0.5pt + rule, inset: 14pt)[
     #set text(size: 10pt, fill: body-ink)
     #block(below: 8pt)[#text(weight: 500, fill: ink)[Nothing to prepare.] The demo uses sample information, so you do not need to send any personal documents.]
-    #block(below: 8pt)[The call is on Google Meet and works best from a computer or iPad, so Tom can share his screen.]
-    #block(below: 10pt)[#text(weight: 500, fill: ink)[Need to move your demo, or have a question?] Email Tom King at #"tom@unlockdd.com"]
+    #block(below: 8pt)[The call is on Google Meet and works best from a computer or iPad, so we can share our screen.]
+    #block(below: 10pt)[#text(weight: 500, fill: ink)[Need to move your demo, or have a question?] Email us at #"tom@unlockdd.com"]
     #block[#link(calendly)[Reschedule your demo →] \ #link(calendly)[#calendly]]
   ]
 ]
