@@ -87,7 +87,7 @@ const TEAM = [
   ['TV', 'Tony Vine-Lott — Commercial Strategy Adviser', 'Founder of Barclays Stockbrokers. Former Director General of TISA. Founding investor.'],
 ];
 
-const CALENDLY_URL = 'https://calendly.com/tom-unlockdd/30min';
+const CALENDLY_URL = 'https://calendly.com/tom-unlockdd/unlock-demo';
 
 function openCalendly(e: React.MouseEvent) {
   e.preventDefault();
