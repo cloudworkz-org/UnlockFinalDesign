@@ -53,11 +53,13 @@
   --u-border-strong: #444444;
   --u-hairline: rgba(255, 255, 255, 0.06);
 
+  /* Text greys: each stays at 4.5:1 or better (WCAG AA) on the dark surfaces
+     above, hover shades included. Keep them there if they change again. */
   --u-text: #ffffff;
-  --u-text-muted: rgba(255, 255, 255, 0.5);
-  --u-text-faint: rgba(255, 255, 255, 0.3);
-  --u-text-footer: #555555;
-  --u-text-compliance: #444444;
+  --u-text-muted: rgba(255, 255, 255, 0.64);
+  --u-text-faint: rgba(255, 255, 255, 0.54);
+  --u-text-footer: #999999;
+  --u-text-compliance: #888888;
 
   --u-amber: #f59e0b;
   --u-red: #ef4444;

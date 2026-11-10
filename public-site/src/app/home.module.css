@@ -22,7 +22,6 @@
 .dot { color: var(--u-green); font-size: 21px; line-height: 0; transform: translateX(-11px); }
 .navlinks { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
 .navlinks li { font-size: 13.5px; color: var(--u-text-muted); }
-.navlinks li.cur { color: var(--u-green); }
 .navlinks li:hover { color: var(--u-text); }
 .navlinks a { color: inherit; text-decoration: none; }
 .navCta {
@@ -267,6 +266,22 @@
   padding-top: 18px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px;
   font-size: 11px; color: var(--u-text-compliance); line-height: 1.5;
 }
+/* the copyright line is longer now: let it wrap instead of pushing the disclaimer onto its own row */
+.fbar > span:first-child { flex: 1 1 320px; }
+
+/* 404 page */
+.nfPage { min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; }
+.nfMain {
+  position: relative; overflow: hidden; flex: 1; background: var(--u-bg-deep);
+  display: flex; align-items: center; justify-content: center;
+  padding: 72px var(--u-gutter) 112px; text-align: center;
+}
+.nfIn { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; }
+.nfIn h1 {
+  font-size: var(--u-type-display); line-height: var(--u-leading-tight);
+  letter-spacing: var(--u-tracking-display); font-weight: var(--u-weight-light); margin: 0;
+}
+.nfText { font-size: var(--u-type-lead); color: var(--u-text-muted); line-height: var(--u-leading-body); max-width: 36ch; margin: 22px 0 36px; text-wrap: balance; }
 
 @media (max-width: 980px) {
   .heroin { grid-template-columns: 1fr; gap: 48px; }

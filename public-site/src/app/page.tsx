@@ -146,7 +146,7 @@ export default function PlatformPage() {
               onClick={() => setMenuOpen(false)}
             >
               <li><Link href="/">Home</Link></li>
-              <li className={styles.cur}>Platform</li>
+              <li><a href="#tools">Platform</a></li>
               <li><a href="#how">How it works</a></li>
               <li><a href="#pricing">Pricing</a></li>
               <li><a href="#about">About</a></li>
@@ -316,7 +316,7 @@ export default function PlatformPage() {
       {/* DEMO BAND */}
       <section className={styles.band} id="demo">
         <div className={styles.wrap} style={{ maxWidth: '640px' }}>
-          <h2>See it with a real portfolio in 20 minutes.</h2>
+          <h2>See it with a real portfolio in 15 minutes.</h2>
           <p>Core tools live, others in active development. Illustrative data, no commitment.</p>
           <a className={`${styles.btn} ${styles.btnP}`} href={CALENDLY_URL} onClick={openCalendly}>
             Book a demo <span>→</span>
@@ -522,7 +522,7 @@ export default function PlatformPage() {
           </div>
         </div>
         <div className={styles.fbar}>
-          <span>© 2026 Unlock Services Limited. Registered in England and Wales. Company No. 15610723.</span>
+          <span>© 2026 Unlock Services Limited. Registered in England and Wales. Company No. 15610723. Registered office: 86-90 Paul Street, London EC2A 4NE.</span>
           <span style={{ maxWidth: '480px', textAlign: 'right' }}>
             This website is for information purposes only and does not constitute financial advice. Capital at risk.
           </span>
