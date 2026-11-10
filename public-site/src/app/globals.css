@@ -53,8 +53,9 @@
   --u-border-strong: #444444;
   --u-hairline: rgba(255, 255, 255, 0.06);
 
-  /* Text greys: each stays at 4.5:1 or better (WCAG AA) on the dark surfaces
-     above, hover shades included. Keep them there if they change again. */
+  /* Text greys. Muted and faint stay at 4.5:1 or better (WCAG AA) on every surface
+     above, card and hover shades included. Footer and compliance are for the
+     footer background (--u-bg-deepest) only. */
   --u-text: #ffffff;
   --u-text-muted: rgba(255, 255, 255, 0.64);
   --u-text-faint: rgba(255, 255, 255, 0.54);
