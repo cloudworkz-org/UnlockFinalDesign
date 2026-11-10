@@ -519,6 +519,8 @@ export default function PlatformPage() {
             <a href="#pricing">Pricing</a>
             <a href="#how">How it works</a>
             <a href="mailto:tom@unlockdd.com">Contact</a>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
           </div>
         </div>
         <div className={styles.fbar}>
