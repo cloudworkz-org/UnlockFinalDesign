@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Unlock works · Technology blueprint</title>
+<meta name="description" content="A walk-through of the architecture, security and calculation design behind Unlock.">
+<meta name="robots" content="noindex, nofollow">
+<style>
+@font-face{font-family:"Aeonik";font-weight:300;font-display:swap;src:local("Aeonik Light"),url("/fonts/Aeonik-Light.otf") format("opentype")}
+@font-face{font-family:"Aeonik";font-weight:400;font-display:swap;src:local("Aeonik"),url("/fonts/Aeonik-Regular.otf") format("opentype")}
+@font-face{font-family:"Aeonik";font-weight:500;font-display:swap;src:local("Aeonik Medium"),url("/fonts/Aeonik-Medium.otf") format("opentype")}
+:root{--bg:#1a1a1a;--bg2:#1f1f1f;--card:#2b2b2b;--line:#3a3a3a;--ink:#fff;--mute:#b3b3b3;--soft:#8c8c8c;--g:#00bb77}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Aeonik","Inter",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:300;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:28px}
+@media(max-width:480px){.wrap{padding-inline:16px}}
+.site-head{position:sticky;top:0;z-index:20;background:rgba(20,20,20,.92);backdrop-filter:saturate(140%) blur(10px);-webkit-backdrop-filter:saturate(140%) blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+.head-bar{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-block:12px}
+.mark{display:inline-flex;align-items:flex-end;color:#f5f7f0;text-decoration:none;line-height:1;flex-shrink:0;font-size:19px}
+.mark svg{height:1em;width:auto;display:block;fill:currentColor}
+.mark i{display:inline-block;width:.22em;height:.22em;border-radius:50%;background:var(--g);margin-left:.12em}
+.site-head a.back{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);text-decoration:none;font-weight:500}
+.site-head a.back:hover{color:var(--g)}
+section{padding:96px 28px}
+section:nth-of-type(even){background:var(--bg2)}
+.in{max-width:1180px;margin:0 auto}
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--g);margin:0 0 18px}
+h1,h2{font-weight:300;letter-spacing:-.02em;line-height:1.1;margin:0}
+h1{font-size:clamp(44px,8vw,104px)}
+h2{font-size:clamp(30px,4.4vw,56px);max-width:18em}
+h1 i,h2 i{font-style:normal;color:var(--g)}
+h3{font-size:22px;font-weight:400;margin:0 0 10px}
+.lead{font-size:clamp(18px,2vw,24px);color:var(--mute);max-width:46em;margin:24px 0 0}
+.hero{min-height:78vh;display:flex;align-items:center}
+.grid{display:grid;gap:20px;margin-top:48px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr}section{padding:64px 22px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:28px 26px}
+.card.on{border-color:var(--g)}
+.card p{margin:0;color:var(--mute);font-size:17px}
+.num{display:inline-block;font-size:13px;font-weight:500;letter-spacing:.14em;color:var(--g);margin-bottom:12px}
+.zones{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:20px;margin-top:48px}
+@media(max-width:900px){.zones{grid-template-columns:1fr}}
+.zone{border:2px dashed var(--line);border-radius:14px;padding:24px;background:#202020}
+.zone.me{border-color:var(--g)}
+.zone h4{margin:0 0 18px;font-size:13px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+.zone.me h4{color:var(--g)}
+.node{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-top:12px}
+.node b{display:block;font-weight:400;font-size:18px}
+.node span{color:var(--mute);font-size:15px}
+.flow{display:flex;align-items:stretch;gap:12px;margin-top:48px;flex-wrap:wrap}
+.flow .step{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px}
+.flow .step.on{border-color:var(--g)}
+.flow .step b{display:block;font-weight:400;font-size:17px;margin-bottom:6px}
+.flow .step span{color:var(--mute);font-size:15px}
+.flow .arr{align-self:center;color:var(--g);font-size:22px}
+@media(max-width:700px){.flow .arr{display:none}}
+table{width:100%;border-collapse:collapse;margin-top:48px;font-size:17px}
+th{text-align:left;font-size:13px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--g);padding:14px 18px;background:#333}
+td{padding:16px 18px;background:var(--card);border-top:1px solid var(--line);color:var(--mute);vertical-align:top}
+td:first-child{color:#fff;width:30%}
+.close{font-size:clamp(28px,4vw,48px);font-weight:300;letter-spacing:-.01em;margin-top:56px;line-height:1.2}
+.close i{font-style:normal;color:var(--g)}
+footer{padding:48px 28px 64px;border-top:1px solid var(--line)}
+footer p{max-width:1180px;margin:0 auto;font-size:13px;line-height:1.7;color:var(--soft)}
+.rv{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rv.in-view{opacity:1;transform:none}
+.no-js .rv{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="no-js">
+<script>document.body.classList.remove('no-js')</script>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ulogo" viewBox="0 0 1968 502"><path d="M186.058 376.199C186.058 408.759 169.987 423.926 135.449 423.926C100.91 423.926 84.8396 408.759 84.8396 376.199V6.84961H0V378.288C0 455.664 50.6433 501.85 135.483 501.85C220.322 501.85 271 455.698 271 378.356V6.84961H186.092V376.199H186.058Z"/><path d="M542.16 219.372C542.16 255.112 542.81 284.245 543.735 307.558C536.1 286.915 526.583 261.822 514.977 232.21L426.034 6.84966H339.625V494.815H423.741V279.486C423.741 245.287 422.885 216.394 421.687 192.772C429.8 214.271 439.592 239.707 450.958 268.086L539.935 494.747H625.625V6.81543H542.194V219.372H542.16Z"/><path d="M782.589 6.91797H697.852V494.918H915.852V418.493H782.589V6.91797Z"/><path d="M1426.68 0C1342.38 0 1292.04 46.1719 1292.04 123.548V378.452C1292.04 455.828 1342.38 502 1426.68 502C1510.98 502 1562.04 455.828 1562.04 378.452V327.417H1477.95V376.363C1477.95 408.046 1461.18 423.46 1426.75 423.46C1392.32 423.46 1376.2 408.492 1376.2 376.363V125.637C1376.2 93.0632 1392.25 77.8895 1426.75 77.8895C1461.25 77.8895 1477.95 93.0632 1477.95 125.637V175.988H1562.04V123.548C1562.04 46.1719 1511.45 0 1426.68 0Z"/><path d="M1795.51 243.626L1902.99 6.84961H1810.68L1706.17 244.927L1814.1 494.85H1909.17L1795.51 243.626Z"/><path d="M1703.51 6.84961H1618.51V494.85H1703.51V6.84961Z"/><path d="M1198.18 250.966V123.548C1198.18 46.1719 1147.57 0 1062.84 0C978.12 0 928.23 46.1719 928.23 123.548V251H970.284V378.452C970.284 455.828 1020.62 502 1104.9 502C1189.18 502 1240.23 455.828 1240.23 378.452V250.966H1198.18ZM1104.97 423.46C1070.95 423.46 1054.43 408.081 1054.43 376.431V251H1012.37V125.637C1012.37 93.0632 1028.42 77.8895 1062.91 77.8895C1097.4 77.8895 1114.1 93.0632 1114.1 125.637V250.966H1156.12V259.015H1156.16V376.431C1156.16 408.081 1139.39 423.46 1104.97 423.46Z"/></symbol></svg>
+
+<header class="site-head">
+  <div class="wrap head-bar">
+    <a class="mark" href="https://unlockdd.com" aria-label="Unlock, main website"><svg role="img" aria-hidden="true" viewBox="0 0 1968 502"><use href="#ulogo"/></svg><i></i></a>
+    <a class="back" href="/">Back to Unlock</a>
+  </div>
+</header>
+
+<main>
+
+<section class="hero"><div class="in">
+<p class="eyebrow">Technology blueprint</p>
+<h1>How Unlock works<i>.</i></h1>
+<p class="lead">A walk-through of the architecture, security and calculation design behind Unlock, in the order a piece of data travels: where it starts, how it is protected, how it is calculated, and where the boundaries are.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">The core idea</p>
+<h2>The desktop app does the work, the cloud keeps encrypted copies, and the phone shows the result<i>.</i></h2>
+<p class="lead">Unlock is designed local-first. The system of record sits on the user’s own computer, so platform logins and raw records are designed not to sit in a central database.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Architecture</p>
+<h2>Designed so the cloud holds only encrypted copies<i>.</i></h2>
+<div class="zones">
+<div class="zone me"><h4>On the user’s computer</h4>
+<div class="node"><b>Desktop app</b><span>Signs in, extracts, calculates</span></div>
+<div class="node"><b>Local database</b><span>Encrypted</span></div>
+<div class="node"><b>Credential store</b><span>Protected by the operating system and a secret only the user holds</span></div></div>
+<div class="zone"><h4>Unlock’s cloud</h4>
+<div class="node"><b>Cloud relay</b><span>Holds the encrypted snapshot and its locked key</span></div>
+<div class="node"><b>Connector</b><span>Seals bank and government data to the desktop’s key</span></div></div>
+<div class="zone"><h4>Phone and web</h4>
+<div class="node"><b>Viewer</b><span>Decrypts and displays the user’s summary</span></div>
+<div class="node"><b>Banks and government services</b><span>Reached through secure connections</span></div></div>
+</div>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">The desktop app</p>
+<h2>The system of record lives on the user’s own machine<i>.</i></h2>
+<div class="grid g4">
+<div class="card on"><h3>Signs in</h3><p>Logs in to each supported platform from the user’s computer, as the user would.</p></div>
+<div class="card on"><h3>Extracts</h3><p>Reads holdings, valuations and account information.</p></div>
+<div class="card on"><h3>Stores</h3><p>Keeps everything in an encrypted local database.</p></div>
+<div class="card on"><h3>Calculates</h3><p>Runs the analytics and planning engines on the desktop.</p></div>
+</div>
+<p class="lead">Designed to keep working with no internet connection. Sync to phone and web is optional.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Getting data in</p>
+<h2>Four routes in, one investor record<i>.</i></h2>
+<div class="grid g4">
+<div class="card on"><span class="num">PLATFORMS</span><p>Platforms without a feed: the desktop app signs in and the data stays on the device.</p></div>
+<div class="card on"><span class="num">CONNECTIONS</span><p>Banks and government services: a connector fetches with the user’s consent and seals the result to the desktop.</p></div>
+<div class="card"><span class="num">DOCUMENTS</span><p>Statements and spreadsheets: read, mapped and checked, with the user confirming.</p></div>
+<div class="card"><span class="num">MANUAL</span><p>Property and private shares: typed in by the user.</p></div>
+</div>
+<p class="lead">The investor record is one picture of everything the user owns and owes. Every tool reads it.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">The engines</p>
+<h2>Three engines, each with its own method<i>.</i></h2>
+<div class="grid g3">
+<div class="card"><h3>EIS and SEIS modeller</h3><p>Models an illustrative multi-year programme from income and the cash the investor chooses to deploy. A repeatable simulation shows a range of outcomes for illustration.</p></div>
+<div class="card"><h3>Investor persona</h3><p>Reflects the investor’s answers back as a closest-match portrait, for understanding rather than recommendation.</p></div>
+<div class="card"><h3>Retirement planner</h3><p>Works year by year, with spending, tax and drawdown order, to illustrate how a plan could play out.</p></div>
+</div>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">How the tools connect</p>
+<h2>Tools share one record, tax tools one rulebook<i>.</i></h2>
+<div class="grid g2">
+<div class="card on"><h3>One investor record</h3><p>Assets, liabilities, income and goals. Every tool reads from it, so a change made once shows up everywhere.</p></div>
+<div class="card"><h3>One rules knowledge base</h3><p>Tax, allowances and relief rates, kept up to date and shared by the tax tools, so they work from the same rules.</p></div>
+</div>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Calculations</p>
+<h2>Code calculates, AI explains<i>.</i></h2>
+<div class="flow">
+<div class="step"><b>Investor record</b><span>Holdings, goals, profile</span></div><div class="arr">→</div>
+<div class="step on"><b>Engines</b><span>Ordinary code does the arithmetic</span></div><div class="arr">→</div>
+<div class="step on"><b>Figures</b><span>Tax, allowances, before and after</span></div><div class="arr">→</div>
+<div class="step"><b>Plain-English explanation</b><span>Describes the figures. Runs on the user’s computer</span></div><div class="arr">→</div>
+<div class="step on"><b>Result</b><span>Data used, how fresh it is, what it assumes</span></div>
+</div>
+<p class="lead">Ordinary code does the arithmetic and is designed to give the same answer for the same inputs and rules. Where data is thin or out of date, results are marked as indicative.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Signing in to platforms</p>
+<h2>Logins stay on the user’s computer<i>.</i></h2>
+<div class="flow">
+<div class="step"><b>1 · The user</b><span>Enters the login once and approves two-factor if asked</span></div><div class="arr">→</div>
+<div class="step on"><b>2 · The app</b><span>Signs in through the platform’s own page, or its API</span></div><div class="arr">→</div>
+<div class="step"><b>3 · The platform</b><span>Sees a sign-in from the user’s own device and network</span></div>
+</div>
+<p class="lead">The login is held in the credential store on the computer. It is designed so that it is not sent to Unlock’s cloud; only a summary of holdings and values goes onward.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Keys, sync and the phone</p>
+<h2>Designed so only ciphertext is stored in the cloud<i>.</i></h2>
+<div class="flow">
+<div class="step on"><b>1</b><span>The desktop creates a data key, locked by a secret the user holds</span></div><div class="arr">→</div>
+<div class="step on"><b>2</b><span>The user pairs the phone with a one-time code</span></div><div class="arr">→</div>
+<div class="step on"><b>3</b><span>The desktop encrypts each snapshot before it leaves the computer</span></div><div class="arr">→</div>
+<div class="step"><b>4</b><span>The cloud stores the encrypted copy</span></div><div class="arr">→</div>
+<div class="step"><b>5</b><span>The phone downloads and decrypts it locally</span></div>
+</div>
+<p class="lead">A printed recovery key opens the encrypted backup if the computer is replaced.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Protecting credentials</p>
+<h2>Four layers, working together<i>.</i></h2>
+<div class="grid g4">
+<div class="card"><h3>Tokens, not passwords</h3><p>Keeps a session token where the platform allows.</p></div>
+<div class="card"><h3>Operating system protection</h3><p>Credentials are held in the computer’s built-in secure storage.</p></div>
+<div class="card"><h3>A secret only the user holds</h3><p>Unlocks the credential store for a session and relocks it on logout or when idle.</p></div>
+<div class="card"><h3>Encrypted database</h3><p>The local holdings database is encrypted.</p></div>
+</div>
+<p class="lead">Credentials are designed to be left out of sync and logs.</p>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Trust summary</p>
+<h2>Who can see what<i>.</i></h2>
+<table>
+<tr><th>Party</th><th>What it can see</th></tr>
+<tr><td>User’s computer</td><td>Everything the user holds, including logins</td></tr>
+<tr><td>Unlock’s cloud storage</td><td>Encrypted copies, plus basic account information</td></tr>
+<tr><td>Connector</td><td>Bank and government data in transit only, sealed to the user’s desktop</td></tr>
+<tr><td>Phone</td><td>The user’s summary, decrypted on the device</td></tr>
+<tr><td>Web viewer</td><td>The same summary, for the length of a session</td></tr>
+</table>
+</div></section>
+
+<section><div class="in rv">
+<p class="eyebrow">Boundaries</p>
+<h2>Read-only, by design<i>.</i></h2>
+<div class="grid g4">
+<div class="card"><h3>Holds no money</h3><p>Assets stay with the platforms that hold them.</p></div>
+<div class="card"><h3>Does not trade</h3><p>Designed with no way to place orders or move funds.</p></div>
+<div class="card"><h3>Reads only</h3><p>It does not change accounts. Disconnecting stops the refresh.</p></div>
+<div class="card"><h3>Information and illustration</h3><p>Structured decision support, built for understanding rather than instruction.</p></div>
+</div>
+<p class="close">A view of your wealth, not a place to keep it<i>.</i></p>
+</div></section>
+
+</main>
+
+<footer>
+<p>Unlock operates outside the FCA perimeter by design. What we provide is structured decision support, not regulated financial advice. Unlock gives no tax or investment advice and is for simulation purposes only.</p>
+</footer>
+
+<script>
+(function(){
+var els=document.querySelectorAll('.rv');
+if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in-view')});return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in-view');io.unobserve(e.target)}})},{threshold:.12});
+els.forEach(function(e){io.observe(e)});
+})();
+</script>
+</body>
+</html>
