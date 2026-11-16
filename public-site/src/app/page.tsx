@@ -82,7 +82,7 @@ const ABOUT = [
 
 const TEAM = [
   ['TK', 'Tom King — Founder & CEO', '15 years building investor-introduction and capital-facilitation technology; facilitated significant investor capital over that period.'],
-  ['WS', 'Werner Snyman — Head of Product', '19 years in senior product leadership at Nedbank; wealth-platform architecture across four markets.'],
+  ['WS', 'Werner Snyman — Head of Product', '20 years in senior product leadership at Nedbank; wealth-platform architecture across four markets.'],
   ['WC', 'William Corke — Head of Service & Compliance', 'Multi-million-pound delivery for FTSE 500 clients.'],
   ['TV', 'Tony Vine-Lott — Founding investor', 'Set up Barclays Stockbrokers; former Chairman of Barclays Trust Bank. Former Director General of TISA.'],
 ];
@@ -339,7 +339,7 @@ export default function PlatformPage() {
             {TOOLS.map((t, i) => (
               <div key={i} className={styles.tool}>
                 <div className={styles.toolGly}>{t[0]}</div>
-                <h3>{t[1]} <span style={{ fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 500, color: t[3] === 'live' ? 'var(--u-green)' : 'var(--u-text-faint)', marginLeft: '6px' }}>{t[3] === 'live' ? 'Live' : 'Founding investors only'}</span></h3>
+                <h3>{t[1]}{t[3] !== 'live' && <> <span style={{ fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 500, color: 'var(--u-text-faint)', marginLeft: '6px' }}>Founding investors only</span></>}</h3>
                 <p>{t[2]}</p>
               </div>
             ))}
