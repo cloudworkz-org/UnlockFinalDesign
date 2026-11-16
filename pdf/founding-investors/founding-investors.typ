@@ -184,7 +184,7 @@
     person("TK", "Tom King", "Founder & CEO", "15 years in investor-introduction and capital-facilitation technology."),
     person("WS", "Werner Snyman", "Head of Product", "20 years in senior product leadership at Nedbank; wealth-platform architecture across four markets."),
     person("NZ", "Nick Zak", "Head of Operations", "20 years in telecoms, marketing, data-warehousing and business transformation. Chief of Staff at Valtech."),
-    person("WC", "William Corke", "Growth and Delivery", "Multi-million-pound delivery for FTSE 500 clients."),
+    person("WC", "William Corke", "Head of Service & Compliance", "Multi-million-pound delivery for FTSE 500 clients."),
     person("CK", "Cagatay Kirici", "Head of AI Infrastructure", "Built the software our founder licensed for years, then spent five years at Qualcomm."),
     person("TV", "Tony Vine-Lott", "Founding investor", "Set up Barclays Stockbrokers; former Chairman of Barclays Trust Bank. Former Director General of TISA."),
     person("FI", "Founding investors", "Founding Investor Programme", "Investors who test the product, bring their own questions and help decide what Unlock builds next."),
