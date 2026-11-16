@@ -82,9 +82,9 @@ const ABOUT = [
 
 const TEAM = [
   ['TK', 'Tom King — Founder & CEO', '15 years building investor-introduction and capital-facilitation technology; facilitated significant investor capital over that period.'],
-  ['WS', 'Werner Snyman — Head of Product', '19 years in senior product leadership at Nedbank; wealth-platform architecture across four markets.'],
+  ['WS', 'Werner Snyman — Head of Product', '20 years in senior product leadership at Nedbank; wealth-platform architecture across four markets.'],
   ['WC', 'William Corke — Head of Service & Compliance', 'Multi-million-pound delivery for FTSE 500 clients.'],
-  ['TV', 'Tony Vine-Lott — Commercial Strategy Adviser', 'Founder of Barclays Stockbrokers. Former Director General of TISA. Founding investor.'],
+  ['TV', 'Tony Vine-Lott — Founding investor', 'Set up Barclays Stockbrokers; former Chairman of Barclays Trust Bank. Former Director General of TISA.'],
 ];
 
 const CALENDLY_URL = 'https://calendly.com/tom-unlockdd/unlock-demo';
@@ -190,7 +190,7 @@ export default function PlatformPage() {
             </div>
             <p className={styles.conflict}>
               Conflict-free by design — Unlock earns from subscriptions, not from what you hold.
-              Public access opens October 2026.
+              We expect to be in the market in Q3 2027.
             </p>
           </div>
 
@@ -339,7 +339,7 @@ export default function PlatformPage() {
             {TOOLS.map((t, i) => (
               <div key={i} className={styles.tool}>
                 <div className={styles.toolGly}>{t[0]}</div>
-                <h3>{t[1]} <span style={{ fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 500, color: t[3] === 'live' ? 'var(--u-green)' : 'var(--u-text-faint)', marginLeft: '6px' }}>{t[3] === 'live' ? 'Live' : 'In development'}</span></h3>
+                <h3>{t[1]}{t[3] !== 'live' && <> <span style={{ fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', fontWeight: 500, color: 'var(--u-text-faint)', marginLeft: '6px' }}>Founding investors only</span></>}</h3>
                 <p>{t[2]}</p>
               </div>
             ))}
@@ -524,7 +524,7 @@ export default function PlatformPage() {
         <div className={styles.fbar}>
           <span>© 2026 Unlock Services Limited. Registered in England and Wales. Company No. 15610723.</span>
           <span style={{ maxWidth: '480px', textAlign: 'right' }}>
-            This website is for information purposes only and does not constitute financial advice. Capital at risk.
+            This website is for information purposes only and does not constitute financial advice. Capital at risk. Unlock gives no tax or investment advice and is for simulation purposes only.
           </span>
         </div>
       </footer>
