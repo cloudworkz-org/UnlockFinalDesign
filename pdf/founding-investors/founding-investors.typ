@@ -117,9 +117,9 @@
   #eyebrow[What Unlock is]
   #grid(columns: (1.6fr, 1fr), column-gutter: 18pt,
     [
-      #lead[Unlock is a decision-intelligence service for high net worth and self-certified sophisticated investors who remain responsible for their own financial decisions.]
+      #lead[Unlock provides structured decision support for high net worth and self-certified sophisticated investors who remain responsible for their own financial decisions.]
       #block(below: 9pt, badge[Founding investors only])
-      #lead[It gives them a live view of all their assets: regulated investments such as stocks, pensions and bonds, as well as unregulated investments such as property, gold and crypto. It helps the investor explore consequential decisions with the sources, assumptions, uncertainty and next action kept in view.]
+      #lead[It gives them one view of all their assets: regulated investments such as stocks, pensions and bonds, as well as unregulated investments such as property, gold and crypto. It helps the investor explore consequential decisions with the sources, assumptions, uncertainty and next action kept in view.]
     ],
     block(width: 100%, stroke: 0.5pt + rule, inset: 13pt)[
       #caps(fill: muted, "Unlock does not")
@@ -184,9 +184,9 @@
     person("TK", "Tom King", "Founder & CEO", "15 years in investor-introduction and capital-facilitation technology."),
     person("WS", "Werner Snyman", "Head of Product", "20 years in senior product leadership at Nedbank; wealth-platform architecture across four markets."),
     person("NZ", "Nick Zak", "Head of Operations", "20 years in telecoms, marketing, data-warehousing and business transformation. Chief of Staff at Valtech."),
-    person("WC", "William Corke", "Growth and Delivery", "Multi-million-pound delivery for FTSE 500 clients."),
-    person("CK", "Cagatay Kirici", "Head of AI Infrastructure", "Built the software Tom licensed for years, then spent five years at Qualcomm."),
-    person("TV", "Tony Vine-Lott", "Commercial Strategy Adviser", "Set up Barclays Stockbrokers; former Chairman of Barclays Trust Bank. Former Director General of TISA. Founding investor."),
+    person("WC", "William Corke", "Head of Service & Compliance", "Multi-million-pound delivery for FTSE 500 clients."),
+    person("CK", "Cagatay Kirici", "Head of AI Infrastructure", "Built the software our founder licensed for years, then spent five years at Qualcomm."),
+    person("TV", "Tony Vine-Lott", "Founding investor", "Set up Barclays Stockbrokers; former Chairman of Barclays Trust Bank. Former Director General of TISA."),
     person("FI", "Founding investors", "Founding Investor Programme", "Investors who test the product, bring their own questions and help decide what Unlock builds next."),
   )
 ]
@@ -207,8 +207,8 @@
 #section[
   #eyebrow[Before your call]
   #set text(size: 10pt, fill: body-ink)
-  #block(below: 8pt)[The call is on Google Meet and works best from a computer or iPad, so Tom can share his screen. There's nothing to prepare.]
-  #block(below: 8pt)[Questions before then: Tom King, #"tom@unlockdd.com"]
+  #block(below: 8pt)[The call is on Google Meet and works best from a computer or iPad, so we can share our screen. There's nothing to prepare.]
+  #block(below: 8pt)[Questions before then: #"tom@unlockdd.com"]
   #block[Need a different time? #link(calendly)[Reschedule your call] \ #link(calendly)[#calendly]]
 ]
 
@@ -217,7 +217,7 @@
   #eyebrow[Important information]
   #set text(size: 8.5pt, fill: muted)
   #list(marker: text(fill: muted)[•], body-indent: 7pt, spacing: 7pt,
-    [Unlock operates outside the FCA perimeter by design. What we provide is structured decision support, not regulated financial advice.],
+    [Unlock operates outside the FCA perimeter by design. What we provide is structured decision support, not regulated financial advice. Unlock gives no tax or investment advice and is for simulation purposes only.],
     [This page introduces Unlock Services Limited and invites you to a conversation. It is not an offer of shares, and it is not advice.],
     [Investing in an early-stage company is high risk. You could lose all the money you invest. Shares in a private company are hard to sell, and any return may take many years or never come.],
     [Tax treatment depends on your individual circumstances and on the company and investment continuing to qualify, and the rules can change. Nothing on this page confirms that any tax relief will be available to you.],
