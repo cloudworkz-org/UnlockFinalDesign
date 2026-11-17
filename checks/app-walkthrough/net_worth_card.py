@@ -9,8 +9,12 @@ Chromium with that theme stored, reads computed colours, and asserts:
   (b) every piece of text inside the card is at least 4.5:1 against the
       surface it sits on (the card's own text colour is checked too);
   (c) every "How it is held" bar segment, and its legend dot, is at least
-      3:1 against the card, in both the "By type" and "Liquid or not" views;
+      3:1 against the card;
   (d) the card background is the theme's own card surface, var(--card).
+
+(b), (c) and (d) are read in each state listed in STATES: each person, both
+views, and with the pointer over "See what is counted". The pointer is kept
+off the bar and legend, whose hover deliberately dims the other parts.
 
 Day, classic and night are the themes the brief names; "dark" (shown as
 "Classic dark") is checked too because it is what a first-time visitor sees.
@@ -42,6 +46,16 @@ THEMES = ["day", "classic", "night", "dark"]
 CARD = 'section[aria-label="Net worth"]'
 TEXT_MIN = 4.5
 SEGMENT_MIN = 3.0
+# Card states read in order on one page load; selectors are inside the card.
+WHO = '[aria-label="Whose picture"] button'
+VIEW = '[aria-label="View"] button'
+STATES = [
+    ("You both, By type", []),
+    ("You both, Liquid or not", [("click", f"{VIEW}:nth-child(2)")]),
+    ("You, By type", [("click", f"{VIEW}:nth-child(1)"), ("click", f"{WHO}:nth-child(1)")]),
+    ("Partner, By type", [("click", f"{WHO}:nth-child(2)")]),
+    ("You both, button hovered", [("click", f"{WHO}:nth-child(3)"), ("hover", "a.ul-hero-btn")]),
+]
 
 READ_CARD = """(sel) => {
   const card = document.querySelector(sel);
@@ -153,7 +167,8 @@ def check_theme(data, problems):
     worst_seg = None
     for kind, items in (("segment", data["segments"]), ("dot", data["dots"])):
         for i, s in enumerate(items):
-            fill = over(parse(s["fill"]), card)
+            r, g, b, a = parse(s["fill"])
+            fill = over((r, g, b, a * float(s["opacity"])), card)
             ratio = contrast(fill, card)
             if worst_seg is None or ratio < worst_seg[0]:
                 worst_seg = (ratio, f"{kind} {i + 1} {hexed(fill)}")
@@ -197,23 +212,26 @@ def main():
             for theme in THEMES:
                 ctx, page = load(browser, base, page_name, theme)
                 problems, worst_text, worst_seg = [], None, None
-                for view in ("By type", "Liquid or not"):
-                    if view == "Liquid or not":
-                        page.get_by_role("button", name="Liquid or not").click()
-                        page.wait_for_function(
-                            "document.querySelector('[aria-label=\"View\"] button:last-child')"
-                            ".getAttribute('aria-pressed') === 'true'")
-                        page.mouse.move(0, 0)
-                        page.evaluate(SETTLE)
+                for label, steps in STATES:
+                    for action, target in steps:
+                        sel = f"{CARD} {target}"
+                        if action == "click":
+                            page.click(sel)
+                            page.wait_for_function(
+                                "(s) => document.querySelector(s).getAttribute('aria-pressed') === 'true'", arg=sel)
+                            page.mouse.move(0, 0)
+                        else:
+                            page.hover(sel)
+                    page.evaluate(SETTLE)
                     data = page.evaluate(READ_CARD, CARD)
-                    data["view"] = view
+                    data["view"] = label
                     wt, ws = check_theme(data, problems)
                     worst_text = min(filter(None, [worst_text, wt]))
                     worst_seg = min(filter(None, [worst_seg, ws]))
-                    if view == "By type":
+                    if not steps:
                         backgrounds[theme] = hexed(surface(data))
+                problems = list(dict.fromkeys(problems))
                 if args.shots and page_name == "home.html":
-                    page.get_by_role("button", name="By type").click()
                     page.mouse.move(0, 0)
                     page.evaluate(SETTLE)
                     page.screenshot(path=str(HERE / f"home-{theme}.png"))
