@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unlock · Settings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Noto+Serif:wght@400;600&amp;display=swap">
+<style>
+body{margin:0}
+.ul,.ul-dark{--bg0:#1a1a1a;--bg1:#1f1f1f;--card:#2b2b2b;--surf:#333333;--text:#ffffff;--muted:rgba(255,255,255,0.5);--muted2:rgba(255,255,255,0.72);--line:rgba(255,255,255,0.09);--line2:rgba(255,255,255,0.2);--mark:rgba(255,255,255,0.45);--hatch:rgba(255,255,255,0.36);--dot:rgba(255,255,255,0.03);--green-text:#00bb77;--green-mark:#00bb77;--green-fill:rgba(0,187,119,0.12);--amber:#f59e0b;--red:#ef4444;--inv-bg:#ffffff;--inv-text:#0d0d0d;--r-sm:4px;--r-ctl:8px;--r-card:12px;--r-pill:9999px;--font-head:'Aeonik','Inter',system-ui,sans-serif}
+.ul-classic{--bg0:#f3f3f1;--bg1:#ebebe8;--card:#ffffff;--surf:#e6e6e2;--text:#0d0d0d;--muted:rgba(13,13,13,0.66);--muted2:rgba(13,13,13,0.8);--line:rgba(13,13,13,0.12);--line2:rgba(13,13,13,0.3);--mark:rgba(13,13,13,0.55);--hatch:rgba(13,13,13,0.4);--dot:rgba(13,13,13,0.05);--green-text:#00704a;--green-mark:#008655;--green-fill:rgba(0,134,85,0.12);--amber:#b45309;--red:#c62828;--inv-bg:#0d0d0d;--inv-text:#ffffff}
+.ul-day{--bg0:#f4efe6;--bg1:#ece5d8;--card:#fbf8f2;--surf:#e6dfd0;--text:#1a1a1a;--muted:rgba(26,26,26,0.68);--muted2:rgba(26,26,26,0.82);--line:rgba(26,26,26,0.14);--line2:rgba(26,26,26,0.32);--mark:rgba(26,26,26,0.55);--hatch:rgba(26,26,26,0.4);--dot:rgba(26,26,26,0.05);--green-text:#00704a;--green-mark:#008655;--green-fill:rgba(0,134,85,0.12);--amber:#a14a08;--red:#b3261e;--inv-bg:#1a1a1a;--inv-text:#fbf8f2;--font-head:'Noto Serif JP','Noto Serif',Georgia,serif}
+.ul-night{--bg0:#1c1a17;--bg1:#211f1b;--card:#2a2723;--surf:#35312b;--text:#f5f0e6;--muted:rgba(245,240,230,0.56);--muted2:rgba(245,240,230,0.75);--line:rgba(245,240,230,0.1);--line2:rgba(245,240,230,0.22);--mark:rgba(245,240,230,0.45);--hatch:rgba(245,240,230,0.36);--dot:rgba(245,240,230,0.03);--inv-bg:#f5f0e6;--inv-text:#1c1a17;--font-head:'Noto Serif JP','Noto Serif',Georgia,serif}
+a{color:var(--text)}a:hover{color:var(--green-text)}
+button{font-family:inherit;cursor:pointer}
+a:focus-visible,button:focus-visible{outline:2px solid var(--green-text);outline-offset:2px}
+.ul-nav,.ul-btn,.ul-card,.ul-th{transition:background-color .15s ease,border-color .15s ease,transform .15s ease}
+.ul-nav{position:relative;z-index:1}.ul-nav:hover,.ul-nav:focus-visible{color:var(--green-text) !important;font-weight:600}
+.ul-nav svg{transition:stroke .15s ease,stroke-width .15s ease}
+.ul-nav:hover svg,.ul-nav:focus-visible svg{stroke:var(--green-text) !important;stroke-width:2.2 !important}
+.ul-pill{transition:top .32s cubic-bezier(.22,1,.36,1),height .32s cubic-bezier(.22,1,.36,1),opacity .18s ease}
+.ul-tip{transition:opacity .12s ease}
+.ul-btn:hover{background:var(--surf) !important;border-color:var(--text) !important;color:var(--text);font-weight:600}
+.ul-card:hover{border-color:var(--mark) !important;transform:translateY(-2px)}
+.ul-hero-btn{transition:background-color .15s ease}.ul-hero-btn:hover{color:#ffffff;background:#000000 !important;font-weight:600}
+.ul-th{background:transparent;color:var(--text)}
+.ul-th:hover{background:var(--surf)}
+.ul-day [data-th="day"],.ul-night [data-th="night"],.ul-classic [data-th="classic"],.ul-dark [data-th="dark"]{background:var(--inv-bg);color:var(--inv-text)}
+.ul-day .ul-logo,.ul-classic .ul-logo{filter:invert(1) brightness(1.15);mix-blend-mode:multiply}
+.ul-block,.ul-hero-card,.ul-row{transition:border-color .18s ease,background-color .18s ease,box-shadow .18s ease}
+.ul-block:hover{border-color:var(--mark) !important;box-shadow:0 6px 20px rgba(0,0,0,0.14)}
+.ul-hero-card:hover{box-shadow:0 10px 28px rgba(0,0,0,0.18)}
+.ul-row{margin:0 -8px;padding-left:8px !important;padding-right:8px !important;border-radius:var(--r-sm)}
+.ul-row:hover{background:var(--surf)}
+@keyframes ul-slide-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes ul-fade-in{from{opacity:0}to{opacity:1}}
+.ul-panel{animation:ul-slide-in .36s cubic-bezier(.22,1,.36,1)}
+.ul-scrim{animation:ul-fade-in .25s ease}
+.ul-ghost{transition:background-color .18s ease}.ul-ghost:hover{background:var(--surf) !important;font-weight:600}
+@keyframes ul-genie{0%{opacity:0;transform:translateY(14px) scale(.35,.12);clip-path:inset(0 30% 0 30% round 12px)}55%{opacity:1;transform:translateY(2px) scale(.92,.7);clip-path:inset(0 4% 0 4% round 12px)}100%{opacity:1;transform:none;clip-path:inset(0 0 0 0 round 12px)}}
+.ul-genie{transform-origin:24px 100%;animation:ul-genie .38s cubic-bezier(.22,1,.36,1)}
+.ul-mi{transition:background-color .15s ease}.ul-mi:hover,.ul-mi:focus-visible{background:var(--surf);color:var(--text)}
+.ul-chev{transition:transform .25s ease}
+@keyframes ul-unlock{0%,86%{transform:translate(0,0)}90%{transform:translate(0,-80px)}93%,96%{transform:translate(-26px,-80px) rotate(-8deg)}99%,100%{transform:translate(0,0)}}
+.ul-shackle{transform-box:fill-box;transform-origin:15% 100%;animation:ul-unlock 10s cubic-bezier(.22,1,.36,1) 2s 3}
+.nav-min .ul-side{flex:0 0 76px !important;max-width:76px !important;padding:20px 10px !important}
+.nav-min .ul-side .ul-nav>span{display:none}
+.nav-min .ul-side .ul-nav{justify-content:center;padding:0 !important}
+.nav-min .ul-sec{font-size:0 !important;line-height:0;padding:0 !important;margin:10px 8px;border-top:1px solid var(--line)}
+.nav-min .ul-logo-full,.nav-min .ul-logodot{display:none !important}
+.ul-ic-open{display:none}.nav-min .ul-ic-open{display:block}.nav-min .ul-ic-close{display:none}
+.nav-min .ul-logo-o{display:block !important}
+.nav-min .ul-logorow{flex-direction:column;align-items:center !important;gap:10px !important;padding:4px 0 12px !important}
+.nav-min .ul-collapse{margin-left:0 !important;color:var(--text) !important;background:var(--surf) !important}
+.nav-min .ul-prof-text,.nav-min .ul-chev{display:none !important}
+.nav-min .ul-prof-btn{justify-content:center;padding:6px !important;border-color:transparent !important;gap:0 !important}
+.nav-min .ul-pill{left:10px !important;right:10px !important}
+.nav-min .ul-genie{right:auto !important;width:260px}
+.nav-min .ul-tipname{display:block !important}
+.ul-side{transition:flex-basis .28s cubic-bezier(.22,1,.36,1),max-width .28s cubic-bezier(.22,1,.36,1)}
+.ul-crumb ol{align-items:center}.ul-crumb li{display:inline-flex;align-items:center;line-height:1.3;min-height:24px}.ul-crumb li svg{display:block}.ul-crumb a{display:inline-flex;align-items:center;min-height:24px;color:var(--muted);text-decoration:none;transition:color .15s ease}.ul-crumb a:hover,.ul-crumb a:focus-visible{color:var(--green-text);text-decoration:underline;text-underline-offset:3px}.ul-crumb [aria-current="page"]{color:var(--text) !important;font-weight:600}
+.ul-table{width:100%;border-collapse:collapse;font-size:15px}
+.ul-table th{font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:0 12px 10px;border-bottom:1px solid var(--line2);white-space:nowrap}
+.ul-table td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+.ul-table tr:hover td{background:var(--surf)}
+.ul-table .num{text-align:right;white-space:nowrap}
+.ul-table tfoot td{font-weight:600;border-bottom:0}
+@keyframes ul-page{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ul-main{animation:ul-page .5s cubic-bezier(.22,1,.36,1) both}
+.ul-main>*{animation:ul-page .55s cubic-bezier(.22,1,.36,1) both}
+.ul-main>*:nth-child(2){animation-delay:.05s}.ul-main>*:nth-child(3){animation-delay:.1s}.ul-main>*:nth-child(4){animation-delay:.15s}.ul-main>*:nth-child(5){animation-delay:.2s}.ul-main>*:nth-child(n+6){animation-delay:.25s}
+.ul-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ul-dg{display:inline-block;height:1.2em;overflow:hidden;vertical-align:top}
+.ul-ds{display:block;line-height:1.2;animation:ul-roll-in 1.1s cubic-bezier(.22,1,.36,1) both}
+.ul-ds>span{display:block;height:1.2em}
+@keyframes ul-roll-in{from{transform:translateY(0)}to{transform:translateY(calc(var(--d) * -1.2em))}}
+.ul-ds{transform:translateY(calc(var(--d) * -1.2em))}
+.ul-bar-x{transform-origin:0 50%;animation:ul-grow-x .9s cubic-bezier(.22,1,.36,1) both}
+.ul-bar-y{transform-origin:50% 100%;animation:ul-grow-y .9s cubic-bezier(.22,1,.36,1) both}
+@keyframes ul-grow-x{from{transform:scaleX(0)}to{transform:none}}
+@keyframes ul-grow-y{from{transform:scaleY(0)}to{transform:none}}
+.ul-chart .ul-bar-y,.ul-chart .ul-bar-x{transition:opacity .18s ease}
+.ul-chart:hover .ul-bar-y,.ul-chart:hover .ul-bar-x{opacity:.35}
+.ul-chart .ul-col:hover .ul-bar-y,.ul-chart .ul-row-bar:hover .ul-bar-x{opacity:1}
+.ul-roll{transition:transform .7s cubic-bezier(.22,1,.36,1)}
+.ul-toast{transition:transform .38s cubic-bezier(.22,1,.36,1),height .38s cubic-bezier(.22,1,.36,1),opacity .25s ease,box-shadow .25s ease}
+
+/* wide screens and projectors (1920) */
+@media (min-width: 1680px){
+.ul{gap:32px !important;padding:32px !important}
+.ul .ul-side{max-width:300px !important;flex-basis:280px !important;top:32px !important;min-height:min(calc(100vh - 64px), 1000px) !important}
+.ul .ul-main{gap:20px !important;font-size:16px}
+.ul h1{font-size:52px !important}
+.ul h2{font-size:26px !important}
+.ul .ul-hero-card{padding:36px !important;gap:32px 64px !important}
+.ul .ul-net{font-size:80px !important}
+.ul section.ul-block{padding:24px !important}
+.ul .ul-tools > article{flex-basis:420px !important;padding:28px !important}
+.ul .ul-tip{width:280px !important;font-size:15px !important}
+}
+@media (prefers-reduced-motion:reduce){.ul-main,.ul-main>*,.ul-ds,.ul-bar-x,.ul-bar-y{animation:none !important}.ul-side{transition:none}.ul-shackle{animation:none}.ul-genie{animation:none}.ul-chev{transition:none}.ul-panel,.ul-scrim{animation:none}.ul-block,.ul-hero-card,.ul-row{transition:none}.ul-roll{transition:none}.ul-toast{transition:opacity .01s}.ul-pill,.ul-tip{transition:opacity .01s}.ul-nav,.ul-btn,.ul-card,.ul-th{transition:none}.ul-card:hover{transform:none}}
+</style>
+</head>
+<body>
+<div id="dc-root"></div>
+<template id="dc-template">
+
+<div class="ul {{themeClass}} {{navMinClass}}" style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px; padding: 24px; box-sizing: border-box; min-height: 2560px; background-color: var(--bg0); background-image: radial-gradient(var(--dot) 1px, transparent 1px); background-size: 24px 24px; color: var(--text); font-family: 'Aeonik', 'Inter', system-ui, -apple-system, sans-serif; font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums">
+
+<!-- ============ MENU ============ -->
+<nav aria-label="Unlock" class="ul-side" onMouseLeave="{{navLeave}}" onBlur="{{navLeave}}" style="position: sticky; top: 24px; align-self: flex-start; min-height: min(calc(100vh - 48px), 900px); z-index: 30; flex: 1 0 248px; max-width: 280px; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px; padding: 20px 12px; background: var(--bg0); border: 1px solid var(--line); border-radius: var(--r-card)">
+<div class="ul-logorow" style="display: flex; align-items: center; gap: 2px; padding: 4px 4px 12px 12px">
+<svg role="img" aria-label="Unlock" class="ul-logo-full" viewBox="0 -90 1910 592" style="height: 23.5px; width: auto; display: block; overflow: visible"><path d="M186.058 376.199C186.058 408.759 169.987 423.926 135.449 423.926C100.91 423.926 84.8396 408.759 84.8396 376.199V6.84961H0V378.288C0 455.664 50.6433 501.85 135.483 501.85C220.322 501.85 271 455.698 271 378.356V6.84961H186.092V376.199H186.058Z" style="fill: var(--text)"></path><path d="M542.16 219.372C542.16 255.112 542.81 284.245 543.735 307.558C536.1 286.915 526.583 261.822 514.977 232.21L426.034 6.84966H339.625V494.815H423.741V279.486C423.741 245.287 422.885 216.394 421.687 192.772C429.8 214.271 439.592 239.707 450.958 268.086L539.935 494.747H625.625V6.81543H542.194V219.372H542.16Z" style="fill: var(--text)"></path><path d="M782.589 6.91797H697.852V494.918H915.852V418.493H782.589V6.91797Z" style="fill: var(--text)"></path><path d="M970.284 251V378.452C970.284 455.828 1020.62 502 1104.9 502C1189.18 502 1240.23 455.828 1240.23 378.452V251H970.284Z" style="fill: var(--text)"></path><path d="M1104.97 423.46C1070.95 423.46 1054.43 408.081 1054.43 376.431V251H1156.16V376.431C1156.16 408.081 1139.39 423.46 1104.97 423.46Z" style="fill: var(--bg0)"></path><g class="ul-shackle"><path d="M1198.18 250.966V123.548C1198.18 46.1719 1147.57 0 1062.84 0C978.12 0 928.23 46.1719 928.23 123.548V251H1012.37V125.637C1012.37 93.0632 1028.42 77.8895 1062.91 77.8895C1097.4 77.8895 1114.1 93.0632 1114.1 125.637V251H1198.18V250.966Z" style="fill: var(--text)"></path></g><path d="M1426.68 0C1342.38 0 1292.04 46.1719 1292.04 123.548V378.452C1292.04 455.828 1342.38 502 1426.68 502C1510.98 502 1562.04 455.828 1562.04 378.452V327.417H1477.95V376.363C1477.95 408.046 1461.18 423.46 1426.75 423.46C1392.32 423.46 1376.2 408.492 1376.2 376.363V125.637C1376.2 93.0632 1392.25 77.8895 1426.75 77.8895C1461.25 77.8895 1477.95 93.0632 1477.95 125.637V175.988H1562.04V123.548C1562.04 46.1719 1511.45 0 1426.68 0Z" style="fill: var(--text)"></path><path d="M1795.51 243.626L1902.99 6.84961H1810.68L1706.17 244.927L1814.1 494.85H1909.17L1795.51 243.626Z" style="fill: var(--text)"></path><path d="M1703.51 6.84961H1618.51V494.85H1703.51V6.84961Z" style="fill: var(--text)"></path></svg><svg role="img" aria-label="Unlock" class="ul-logo-o" viewBox="900 -90 380 592" style="display: none; height: 30px; width: auto; overflow: visible"><path d="M970.284 251V378.452C970.284 455.828 1020.62 502 1104.9 502C1189.18 502 1240.23 455.828 1240.23 378.452V251H970.284Z" style="fill: var(--text)"></path><path d="M1104.97 423.46C1070.95 423.46 1054.43 408.081 1054.43 376.431V251H1156.16V376.431C1156.16 408.081 1139.39 423.46 1104.97 423.46Z" style="fill: var(--bg0)"></path><g class="ul-shackle"><path d="M1198.18 250.966V123.548C1198.18 46.1719 1147.57 0 1062.84 0C978.12 0 928.23 46.1719 928.23 123.548V251H1012.37V125.637C1012.37 93.0632 1028.42 77.8895 1062.91 77.8895C1097.4 77.8895 1114.1 93.0632 1114.1 125.637V251H1198.18V250.966Z" style="fill: var(--text)"></path></g></svg>
+<span aria-hidden="true" class="ul-logodot" style="color: var(--green-text); font-size: 26px; line-height: 0.6; align-self: flex-end">.</span>
+<button type="button" class="ul-ghost ul-collapse" aria-label="{{navToggleLabel}}" title="{{navToggleLabel}}" aria-pressed="{{navMin}}" onClick="{{toggleNavMin}}" style="margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; padding: 0; background: transparent; color: var(--muted); border: 0; border-radius: var(--r-ctl)"><svg class="ul-ic-close" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path><path d="m16 15-3-3 3-3"></path></svg><svg class="ul-ic-open" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path><path d="m14 9 3 3-3 3"></path></svg></button>
+</div>
+<span aria-hidden="true" class="ul-pill" style="transition: {{pillTrans}}; position: absolute; left: 12px; right: 12px; top: {{pillTop}}; height: {{pillH}}; background: var(--surf); border: 1px solid var(--line2); border-radius: var(--r-ctl); opacity: {{navOp}}; pointer-events: none; z-index: 0"></span>
+<span aria-hidden="true" class="ul-tip" style="position: absolute; left: calc(100% + 14px); top: {{tipTop}}; width: 248px; box-sizing: border-box; padding: 10px 14px; background: var(--inv-bg); color: var(--inv-text); border-radius: var(--r-ctl); font-size: 14px; line-height: 1.4; opacity: {{navOp}}; transform: translateY(-50%) translateX({{tipShift}}); pointer-events: none; z-index: 40; box-shadow: 0 8px 24px rgba(0,0,0,0.25)"><span style="position: absolute; left: -5px; top: 50%; width: 10px; height: 10px; background: var(--inv-bg); transform: translateY(-50%) rotate(45deg)"></span><span class="ul-tipname" style="position: relative; display: none; font-weight: 600">{{tipName}}</span><span style="position: relative">{{tipText}}</span></span>
+
+<a class="ul-nav" onMouseEnter="{{nav0}}" onFocus="{{nav0}}" href="home.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+<span>Home</span>
+</a>
+
+<div class="ul-sec" style="padding: 14px 12px 4px; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">What you have</div>
+<a class="ul-nav" onMouseEnter="{{nav1}}" onFocus="{{nav1}}" href="YourMoney.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"></path><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"></path></svg>
+<span>Your money</span>
+</a>
+<a class="ul-nav" onMouseEnter="{{nav2}}" onFocus="{{nav2}}" href="Income.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"></path><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"></path><path d="m2 16 6 6"></path><circle cx="16" cy="9" r="2.9"></circle><circle cx="6" cy="5" r="3"></circle></svg>
+<span>Income</span>
+</a>
+
+<div class="ul-sec" style="padding: 14px 12px 4px; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">Tools to think with</div>
+<a class="ul-nav" onMouseEnter="{{nav3}}" onFocus="{{nav3}}" href="PortfolioLab.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"></path><path d="M6.453 15h11.094"></path><path d="M8.5 2h7"></path></svg>
+<span>Portfolio lab</span>
+</a>
+<a class="ul-nav" onMouseEnter="{{nav4}}" onFocus="{{nav4}}" href="TaxEfficient.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><line x1="19" x2="5" y1="5" y2="19"></line><circle cx="6.5" cy="6.5" r="2.5"></circle><circle cx="17.5" cy="17.5" r="2.5"></circle></svg>
+<span>Tax-efficient investing</span>
+</a>
+<a class="ul-nav" onMouseEnter="{{nav5}}" onFocus="{{nav5}}" href="Opportunities.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>
+<span style="flex: 1">Opportunities</span>
+<span style="font-size: 13px; color: var(--muted)">3 starred</span>
+</a>
+<a class="ul-nav" onMouseEnter="{{nav6}}" onFocus="{{nav6}}" href="Retirement.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M5 22h14"></path><path d="M5 2h14"></path><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"></path><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"></path></svg>
+<span>Retirement planner</span>
+</a>
+
+<div class="ul-sec" style="padding: 14px 12px 4px; font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">Kept in order</div>
+<a class="ul-nav" onMouseEnter="{{nav7}}" onFocus="{{nav7}}" href="Heartbeat.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path><path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path></svg>
+<span>Heartbeat</span>
+</a>
+<a class="ul-nav" onMouseEnter="{{nav8}}" onFocus="{{nav8}}" href="Calendar.html" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M8 2v3"></path><path d="M16 2v3"></path><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M8 13h.01"></path><path d="M12 13h.01"></path><path d="M16 13h.01"></path><path d="M8 17h.01"></path><path d="M12 17h.01"></path><path d="M16 17h.01"></path></svg>
+<span>Calendar</span>
+</a>
+<div style="margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line)">
+<a class="ul-nav" href="Settings.html#connections" title="Connections: 4 connected" style="display: flex; align-items: center; gap: 12px; min-height: 36px; padding: 0 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none; font-size: 15px">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex: none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+<span style="flex: 1">Connections</span>
+<span style="display: inline-flex; align-items: center; padding: 2px 8px; background: var(--green-fill); color: var(--green-text); border-radius: var(--r-pill); font-size: 12px; white-space: nowrap">4 connected</span>
+</a>
+
+
+<div style="position: relative">
+<sc-if value="{{userOpen}}" hint-placeholder-val="{{false}}">
+<div onClick="{{closeUser}}" aria-hidden="true" style="position: fixed; inset: 0; z-index: 50"></div>
+<div id="user-menu" role="menu" aria-label="Profile" class="ul-genie" style="position: absolute; left: 0; right: 0; bottom: calc(100% + 8px); z-index: 60; box-sizing: border-box; display: flex; flex-direction: column; gap: 2px; padding: 6px; background: var(--card); border: 1px solid var(--line2); border-radius: var(--r-card); box-shadow: 0 16px 40px rgba(0,0,0,0.3)">
+<a href="Settings.html#info" role="menuitem" class="ul-mi" onClick="{{closeUser}}" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none">
+<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+<span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px">Info</span><span style="font-size: 13px; color: var(--muted)">About this profile and its sources</span></span>
+</a>
+<a href="Settings.html#connections" role="menuitem" class="ul-mi" onClick="{{closeUser}}" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none">
+<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+<span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px">Connections</span><span style="font-size: 13px; color: var(--muted)">4 providers connected</span></span>
+</a>
+<a href="Settings.html#settings" role="menuitem" class="ul-mi" onClick="{{closeUser}}" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none">
+<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"></path><circle cx="12" cy="12" r="3"></circle></svg>
+<span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px">Settings</span><span style="font-size: 13px; color: var(--muted)">Editions, text size and sounds</span></span>
+</a>
+<a href="#top" role="menuitem" class="ul-mi" onClick="{{closeUser}}" style="display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 12px; border-radius: var(--r-ctl); color: var(--text); text-decoration: none">
+<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><path d="M12 17h.01"></path></svg>
+<span style="display: flex; flex-direction: column; min-width: 0"><span style="font-size: 15px">Help</span><span style="font-size: 13px; color: var(--muted)">How Unlock works, guidance not advice</span></span>
+</a>
+</div>
+</sc-if>
+<button type="button" class="ul-ghost ul-prof-btn" aria-haspopup="menu" aria-expanded="{{userOpen}}" aria-controls="user-menu" onClick="{{toggleUser}}" style="width: 100%; display: flex; align-items: center; gap: 12px; padding: 12px; background: {{userBg}}; color: var(--text); border: 1px solid var(--line); border-radius: var(--r-ctl); text-align: left; font-size: 15px">
+<span aria-hidden="true" style="flex: none; width: 40px; height: 40px; border-radius: var(--r-pill); background: var(--green-fill); color: var(--green-text); display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif JP', 'Noto Serif', Georgia, serif; font-size: 15px">W</span>
+<span class="ul-prof-text" style="display: flex; flex-direction: column; min-width: 0">
+<span style="font-size: 15px">The Whitfields</span>
+<span style="font-size: 13px; color: var(--muted)">Example profile · synthetic figures</span>
+</span>
+<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" class="ul-chev" style="margin-left: auto; flex: none; fill: none; stroke: var(--muted); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transform: rotate({{userChev}})"><path d="m18 15-6-6-6 6"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+
+<!-- ============ PAGE ============ -->
+<main id="top" class="ul-main" style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+<!-- header -->
+<header style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 24px; padding: 4px 4px 8px">
+<div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 12px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; color: var(--green-text)">Your profile</p>
+<h1 style="margin: 0; font-size: 44px; font-family: var(--font-head); font-weight: 300; line-height: 1.1; letter-spacing: -0.015em">Settings<span style="color: var(--green-text)">.</span></h1>
+<nav aria-label="Breadcrumb" class="ul-crumb"><ol style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted)"><li><a href="home.html">Home</a></li><li aria-hidden="true" style="color: var(--muted)"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></li><li><a href="Settings.html">Your profile</a></li><li aria-hidden="true" style="color: var(--muted)"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></li><li aria-current="page" style="color: var(--text)">Settings</li></ol></nav>
+<p style="margin: 0; max-width: 72ch; font-size: 15px; color: var(--muted)">Who you both are, the providers Unlock reads from, and how Unlock looks for you. Nothing here changes a figure.</p>
+</div>
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; align-self: flex-start; flex: none">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 6px">
+<button type="button" class="ul-btn" aria-expanded="{{learnOpen}}" aria-controls="learn-panel" onClick="{{openLearn}}" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 0 9px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase">
+<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v16"></path><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"></path></svg>
+Learn
+</button>
+<button type="button" class="ul-btn" aria-expanded="{{askOpen}}" aria-controls="ask-panel" onClick="{{openAsk}}" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 0 9px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase">
+<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M22 17a2 2 0 0 1-2 2H6.828a2 2 0 0 0-1.414.586l-2.202 2.202A.71.71 0 0 1 2 21.286V5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2z"></path></svg>
+Ask
+</button>
+<div role="group" aria-label="Edition" style="display: flex; gap: 2px; padding: 2px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)">
+<button type="button" class="ul-th" data-th="day" aria-label="Day edition" title="Day edition" aria-pressed="{{isDay}}" onClick="{{setDay}}" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 6px"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></button>
+<button type="button" class="ul-th" data-th="night" aria-label="Night edition" title="Night edition" aria-pressed="{{isNight}}" onClick="{{setNight}}" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 6px"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
+<button type="button" class="ul-th" data-th="classic" aria-label="Classic light" title="Classic light" aria-pressed="{{isClassic}}" onClick="{{setClassic}}" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 6px"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><circle cx="12" cy="12" r="4"></circle><path d="M12 4h.01"></path><path d="M20 12h.01"></path><path d="M12 20h.01"></path><path d="M4 12h.01"></path><path d="M17.657 6.343h.01"></path><path d="M17.657 17.657h.01"></path><path d="M6.343 17.657h.01"></path><path d="M6.343 6.343h.01"></path></svg></button>
+<button type="button" class="ul-th" data-th="dark" aria-label="Classic dark" title="Classic dark" aria-pressed="{{isDark}}" onClick="{{setDark}}" style="display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 6px"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M18 5h4"></path><path d="M20 3v4"></path><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></button>
+</div>
+</div>
+<button type="button" class="ul-ghost" aria-expanded="{{newsOpen}}" aria-controls="news-panel" onClick="{{openNews}}" style="align-self: flex-end; display: inline-flex; align-items: center; gap: 5px; min-height: 24px; padding: 0 7px; background: transparent; color: var(--text); border: 0; border-radius: var(--r-ctl); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase">
+<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
+<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M15 18h-5"></path><path d="M18 14h-8"></path><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-4 0v-9a2 2 0 0 1 2-2h2"></path><rect width="8" height="4" x="10" y="6" rx="1"></rect></svg>
+News
+<span style="display: inline-flex; align-items: center; justify-content: center; min-width: 16px; height: 16px; padding: 0 5px; box-sizing: border-box; background: var(--green-fill); color: var(--green-text); border-radius: var(--r-pill); font-size: 10px; letter-spacing: 0">4</span>
+</button>
+</div>
+</header>
+<div style="display: flex; flex-direction: column; gap: 16px">
+<nav aria-label="On this page" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; align-self: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)"><a class="ul-btn" href="#info" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: var(--r-ctl); font-size: 14px; text-decoration: none"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"></circle><path d="M20 21a8 8 0 0 0-16 0"></path></svg>Info</a><a class="ul-btn" href="#connections" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: var(--r-ctl); font-size: 14px; text-decoration: none"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>Connections</a><a class="ul-btn" href="#settings" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: var(--r-ctl); font-size: 14px; text-decoration: none"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"></path><circle cx="12" cy="12" r="3"></circle></svg>Settings</a></nav>
+<section id="info" class="ul-block" style="flex: 1 1 100%; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">Info<span style="color: var(--green-text)">.</span></h2><div style="display: flex; flex-wrap: wrap; gap: 8px"><span style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; background: var(--green-fill); color: var(--green-text); border-radius: var(--r-sm); font-size: 13px; white-space: nowrap"><span aria-hidden="true" style="width: 8px; height: 8px; background: currentColor; border-radius: var(--r-pill)"></span>Your figures</span><button type="button" class="ul-btn" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path><path d="m15 5 4 4"></path></svg>Edit details</button></div></div><p style="margin: 0; font-size: 14px; color: var(--muted)">Nearly retired couple · persona: The Retirement Planner.</p><div style="display: flex; flex-wrap: wrap; gap: 16px 40px"><div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 4px"><div style="display: flex; align-items: center; gap: 12px; padding-bottom: 8px"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--r-pill); background: var(--green-fill); color: var(--green-text); display: flex; align-items: center; justify-content: center; font-size: 15px">JW</span><span style="display: flex; flex-direction: column"><span style="font-size: 17px">James Whitfield · you</span><span style="font-size: 13px; color: var(--muted)">Added by you and from your register</span></span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">First name</span><span>James</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Surname</span><span>Whitfield</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Age</span><span>58</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Works as</span><span>Salaried, Harbour Logistics</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Plans to stop work</span><span>At 62, when the plan starts</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Income tax this year</span><span>£67,203 · top rate 45%</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">State Pension</span><span>From 67, April 2032</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Tax residence</span><span>England</span></div></div><div style="flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 4px"><div style="display: flex; align-items: center; gap: 12px; padding-bottom: 8px"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--r-pill); background: var(--green-fill); color: var(--green-text); display: flex; align-items: center; justify-content: center; font-size: 15px">CW</span><span style="display: flex; flex-direction: column"><span style="font-size: 17px">Clare Whitfield · your partner</span><span style="font-size: 13px; color: var(--muted)">Added by you and from your register</span></span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">First name</span><span>Clare</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Surname</span><span>Whitfield</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Age</span><span>59</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Works as</span><span>Self-employed, design work, until March 2029</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Pension</span><span>Northgate scheme from 62, April 2029</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Income tax this year</span><span>£846 · top rate 20%</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">State Pension</span><span>From 67, April 2034</span></div><div style="display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 12px; padding: 10px 0; border-top: 1px solid var(--line)"><span style="font-size: 14px; color: var(--muted)">Tax residence</span><span>England</span></div></div></div><p style="margin: 0; display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted)"><span style="display: inline-flex; flex: none; padding-top: 2px"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></span><span>A couple is planned together, but each of you is taxed on your own figures. Every figure is synthetic in this example profile.</span></p></section>
+<section id="connections" class="ul-block" style="flex: 1 1 100%; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">Connections<span style="color: var(--green-text)">.</span></h2></div><p style="margin: 0; font-size: 14px; color: var(--muted)">4 connected · the rest of your register stays manual.</p><div style="display: grid; grid-template-columns: 44px minmax(0,1fr) auto auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line)"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--r-ctl); background: var(--surf); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">FS</span><span style="display: flex; flex-direction: column"><span>Fundsmith</span><span style="font-size: 13px; color: var(--muted)">Reads 2 holdings: the Equity Fund and Smithson (£200,510)</span></span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="display: inline-flex; color: var(--green-mark)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg></span>Connected · 13 Nov</span><button type="button" class="ul-btn" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>Refresh</button></div><div style="display: grid; grid-template-columns: 44px minmax(0,1fr) auto auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line)"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--r-ctl); background: var(--surf); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">HM</span><span style="display: flex; flex-direction: column"><span>HMRC</span><span style="font-size: 13px; color: var(--muted)">Your tax returns, payments and tax code</span></span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="display: inline-flex; color: var(--green-mark)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg></span>Connected · 14 Oct</span><button type="button" class="ul-btn" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>Refresh</button></div><div style="display: grid; grid-template-columns: 44px minmax(0,1fr) auto auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line)"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--r-ctl); background: var(--surf); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">GC</span><span style="display: flex; flex-direction: column"><span>Google Calendar</span><span style="font-size: 13px; color: var(--muted)">Adds your Unlock dates to your calendar</span></span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="display: inline-flex; color: var(--green-mark)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg></span>Connected</span><button type="button" class="ul-btn" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>Refresh</button></div><div style="display: grid; grid-template-columns: 44px minmax(0,1fr) auto auto; gap: 14px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line)"><span aria-hidden="true" style="width: 44px; height: 44px; border-radius: var(--r-ctl); background: var(--surf); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600">XE</span><span style="display: flex; flex-direction: column"><span>Xero</span><span style="font-size: 13px; color: var(--muted)">Acme Ltd’s accounts, for your share of the company</span></span><span style="display: inline-flex; align-items: center; gap: 6px; white-space: nowrap"><span style="display: inline-flex; color: var(--green-mark)"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m16 9-5.5 5.5L8 12"></path></svg></span>Connected</span><button type="button" class="ul-btn" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>Refresh</button></div><div style="padding-top: 12px; border-top: 1px solid var(--line)"><a class="ul-btn" href="Settings.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid var(--line2); border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none; white-space: nowrap">Connect another provider<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></a></div><p style="margin: 0; display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted)"><span style="display: inline-flex; flex: none; padding-top: 2px"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></span><span>Unlock only reads. It never moves money, and HMRC’s own sign-in page is used to connect, never one of ours.</span></p></section>
+<section id="settings" style="display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 24px"><h2 style="margin: 0; padding: 12px 4px 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2">Settings<span style="color: var(--green-text)">.</span></h2><div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch"><section class="ul-block" style="flex: 1 1 100%; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">Edition<span style="color: var(--green-text)">.</span></h2></div><div role="group" aria-label="Edition" style="display: flex; flex-wrap: wrap; gap: 8px"><button type="button" aria-pressed="false" style="flex: 1 1 150px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-card); text-align: left"><span style="display: inline-flex"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></span><span style="font-size: 15px">Morning</span><span style="font-size: 13px; color: var(--muted)">Warm paper, serif titles</span></button><button type="button" aria-pressed="false" style="flex: 1 1 150px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-card); text-align: left"><span style="display: inline-flex"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span><span style="font-size: 15px">Evening</span><span style="font-size: 13px; color: var(--muted)">Morning, on warm charcoal</span></button><button type="button" aria-pressed="false" style="flex: 1 1 150px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-card); text-align: left"><span style="display: inline-flex"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 4h.01"></path><path d="M20 12h.01"></path><path d="M12 20h.01"></path><path d="M4 12h.01"></path><path d="M17.657 6.343h.01"></path><path d="M17.657 17.657h.01"></path><path d="M6.343 17.657h.01"></path><path d="M6.343 6.343h.01"></path></svg></span><span style="font-size: 15px">Classic light</span><span style="font-size: 13px; color: var(--muted)">Plain light, sans serif</span></button><button type="button" aria-pressed="true" style="flex: 1 1 150px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 14px; background: var(--surf); color: var(--text); border: 1px solid var(--text); border-radius: var(--r-card); text-align: left"><span style="display: inline-flex"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 5h4"></path><path d="M20 3v4"></path><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"></path></svg></span><span style="font-size: 15px">Classic dark</span><span style="font-size: 13px; color: var(--muted)">The default</span></button></div><p style="margin: 0; display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--muted)"><span style="display: inline-flex; flex: none; padding-top: 2px"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></span><span>Changes colours and the title face only; the layout stays the same.</span></p></section></div><div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: stretch"><section class="ul-block" style="flex: 1 1 360px; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">Text size<span style="color: var(--green-text)">.</span></h2></div><div role="group" aria-label="Text size" style="display: flex; gap: 4px; padding: 4px; background: var(--bg0); border-radius: var(--r-card); align-self: flex-start"><button type="button" aria-pressed="true" style="min-height: 40px; padding: 0 16px; background: var(--inv-bg); color: var(--inv-text); border: 0; border-radius: var(--r-ctl); font-size: 15px">Standard</button><button type="button" aria-pressed="false" style="min-height: 40px; padding: 0 16px; background: transparent; color: var(--text); border: 0; border-radius: var(--r-ctl); font-size: 17px">Larger</button><button type="button" aria-pressed="false" style="min-height: 40px; padding: 0 16px; background: transparent; color: var(--text); border: 0; border-radius: var(--r-ctl); font-size: 19px">Largest</button></div></section><section class="ul-block" style="flex: 1 1 360px; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">Menu<span style="color: var(--green-text)">.</span></h2></div><p style="margin: 0">Show the side menu in full, or as icons only for more room. You can also switch it with the button beside the logo.</p></section><section class="ul-block" style="flex: 1 1 360px; min-width: 0; box-sizing: border-box; display: flex; flex-direction: column; gap: 14px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)"><div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">Sounds<span style="color: var(--green-text)">.</span></h2></div><div role="group" aria-label="Sounds" style="display: flex; gap: 4px; padding: 4px; background: var(--bg0); border-radius: var(--r-card); align-self: flex-start"><button type="button" aria-pressed="{{soundOn}}" onClick="{{soundOnSet}}" style="min-height: 40px; padding: 0 16px; background: {{soundOnBg}}; color: {{soundOnFg}}; border: 0; border-radius: var(--r-ctl); font-size: 15px">On</button><button type="button" aria-pressed="{{soundOff}}" onClick="{{soundOffSet}}" style="min-height: 40px; padding: 0 16px; background: {{soundOffBg}}; color: {{soundOffFg}}; border: 0; border-radius: var(--r-ctl); font-size: 15px">Off</button></div><p style="margin: 0; font-size: 14px; color: var(--muted)">Quiet taps when you press a button, open a panel or move between pages.</p></section></div></section>
+</div>
+</main>
+
+
+<!-- learn panel: only in the page while open -->
+<sc-if value="{{learnOpen}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" onClick="{{closeLearn}}" class="ul-scrim" style="position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.45)"></div>
+<aside id="learn-panel" aria-label="Learn" class="ul-panel" style="position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 440px; max-width: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg0); border-left: 1px solid var(--line2); box-shadow: -12px 0 32px rgba(0,0,0,0.25)">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 24px 24px 16px; border-bottom: 1px solid var(--line)">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">Learn · Settings</span>
+<h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2">About this page<span style="color: var(--green-text)">.</span></h2>
+<p style="margin: 0; font-size: 15px; color: var(--muted)">Who you both are, the providers Unlock reads from, and how Unlock looks for you.</p>
+</div>
+<button type="button" class="ul-btn" aria-label="Close Learn" onClick="{{closeLearn}}" style="flex: none; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl)">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 16px 24px">
+<p style="margin: 0; font-size: 15px; color: var(--muted)">Learn panels explain the page without leaving it.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 24px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted)">
+<span>Guidance, not advice.</span>
+</div>
+</aside>
+</sc-if>
+
+<!-- ask panel: only in the page while open -->
+<sc-if value="{{askOpen}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" onClick="{{closeAsk}}" class="ul-scrim" style="position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.45)"></div>
+<aside id="ask-panel" aria-label="Ask" class="ul-panel" style="position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 440px; max-width: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg0); border-left: 1px solid var(--line2); box-shadow: -12px 0 32px rgba(0,0,0,0.25)">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 24px 24px 16px; border-bottom: 1px solid var(--line)">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">Ask · Settings</span>
+<h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2">Ask about this page<span style="color: var(--green-text)">.</span></h2>
+</div>
+<button type="button" class="ul-btn" aria-label="Close Ask" onClick="{{closeAsk}}" style="flex: none; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl)">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 16px 24px">
+<p style="margin: 0; font-size: 15px; color: var(--muted)">Ask a question about what is on this page. Answers come from this page and your register, with their source.</p>
+
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 16px 24px; border-top: 1px solid var(--line)">
+<label for="ask-input" style="font-size: 14px; color: var(--muted)">Your question</label>
+<div style="display: flex; gap: 8px">
+<input id="ask-input" type="text" placeholder="For example: what would change if we sold the flat?" style="flex: 1; min-width: 0; min-height: 44px; box-sizing: border-box; padding: 0 14px; background: var(--card); color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl); font-family: inherit; font-size: 15px">
+<button type="button" class="ul-btn" aria-label="Send question" style="flex: none; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: var(--inv-bg); color: var(--inv-text); border: 0; border-radius: var(--r-ctl)"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"></path><path d="M12 19V5"></path></svg></button>
+</div>
+<span style="font-size: 13px; color: var(--muted)">Guidance, not advice. Every answer names where it came from.</span>
+</div>
+</aside>
+</sc-if>
+<!-- news digest panel: only in the page while open -->
+<sc-if value="{{newsOpen}}" hint-placeholder-val="{{false}}">
+<div aria-hidden="true" onClick="{{closeNews}}" class="ul-scrim" style="position: fixed; inset: 0; z-index: 90; background: rgba(0,0,0,0.45);"></div>
+<aside id="news-panel" aria-label="In your news" class="ul-panel" style="position: fixed; top: 0; right: 0; bottom: 0; z-index: 100; width: 440px; max-width: 100%; box-sizing: border-box; display: flex; flex-direction: column; background: var(--bg0); border-left: 1px solid var(--line2); box-shadow: -12px 0 32px rgba(0,0,0,0.25);">
+<div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 24px 24px 16px; border-bottom: 1px solid var(--line)">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">In your news<span style="color: var(--green-text)">.</span></h2>
+<p style="margin: 0; font-size: 15px; color: var(--muted)">About what you own, from the sources you trust: Financial Times and BBC News.</p>
+</div>
+<button type="button" class="ul-btn" aria-label="Close news" onClick="{{closeNews}}" style="flex: none; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: transparent; color: var(--text); border: 1px solid var(--line2); border-radius: var(--r-ctl)">
+<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div style="flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; padding: 16px 24px">
+<article class="ul-card" style=" box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)">
+<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">UK property</span>
+<a href="#top" style="font-size: 18px; line-height: 1.3; text-decoration: none">What the latest rate decision means for landlords</a>
+<p style="margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted)"><span style="color: var(--text)">Why you see this:</span> your partner owns a buy-to-let flat (£420,000). 4 min read.</p>
+</article>
+<article class="ul-card" style=" box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)">
+<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">Global share funds</span>
+<a href="#top" style="font-size: 18px; line-height: 1.3; text-decoration: none">Quality-growth funds after a year of narrow markets</a>
+<p style="margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted)"><span style="color: var(--text)">Why you see this:</span> you hold Fundsmith Equity and Smithson (£200,510). 6 min read.</p>
+</article>
+<article class="ul-card" style=" box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)">
+<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">Early-stage investing</span>
+<a href="#top" style="font-size: 18px; line-height: 1.3; text-decoration: none">How EIS relief is claimed through Self Assessment</a>
+<p style="margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted)"><span style="color: var(--text)">Why you see this:</span> you invested £50,000 in Unlock. 3 min read.</p>
+</article>
+<article class="ul-card" style=" box-sizing: border-box; display: flex; flex-direction: column; gap: 10px; padding: 20px; background: var(--card); border: 1px solid var(--line); border-radius: var(--r-card)">
+<span style="font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green-text)">Pensions</span>
+<a href="#top" style="font-size: 18px; line-height: 1.3; text-decoration: none">Pensions and inheritance tax from April 2027</a>
+<p style="margin: auto 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted)"><span style="color: var(--text)">Why you see this:</span> from 6 April 2027 your SIPPs count towards your estate. 5 min read.</p>
+</article>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 16px 24px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted)">
+<span>Short summaries of coverage, not advice.</span>
+<a href="#top" style="font-size: 15px">Manage sources</a>
+</div>
+</aside>
+</sc-if>
+</div>
+</template>
+<script src="unlock-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+componentDidMount() {
+if (!document.__ulSound) {
+const S = {
+ctx: null, noise: null,
+on() { try { return localStorage.getItem('unlock.sound') !== 'off'; } catch (e) { return true; } },
+ac() {
+if (!this.ctx) { const A = window.AudioContext || window.webkitAudioContext; if (!A) return null; this.ctx = new A(); }
+if (this.ctx.state === 'suspended') this.ctx.resume();
+if (!this.noise) { const c = this.ctx, n = c.createBuffer(1, c.sampleRate * 0.4, c.sampleRate), d = n.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; this.noise = n; }
+return this.ctx;
+},
+// a muted body: a falling sine through a low filter
+thud(f1, f2, dur, vol, delay, cut) {
+const c = this.ctx, t = c.currentTime + (delay || 0);
+const o = c.createOscillator(), g = c.createGain(), lp = c.createBiquadFilter();
+lp.type = 'lowpass'; lp.frequency.value = cut || 700; lp.Q.value = 0.4;
+o.type = 'sine'; o.frequency.setValueAtTime(f1, t); o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+o.connect(lp); lp.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.03);
+},
+// air: filtered noise, for panels and page moves
+air(fFrom, fTo, dur, vol, delay, q) {
+const c = this.ctx, t = c.currentTime + (delay || 0);
+const s = c.createBufferSource(), bp = c.createBiquadFilter(), g = c.createGain();
+s.buffer = this.noise; bp.type = 'bandpass'; bp.Q.value = q || 0.9;
+bp.frequency.setValueAtTime(fFrom, t); bp.frequency.exponentialRampToValueAtTime(fTo, t + dur);
+g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + dur * 0.35); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+s.connect(bp); bp.connect(g); g.connect(c.destination); s.start(t); s.stop(t + dur + 0.03);
+},
+play(name, force) {
+if (!force && !this.on()) return;
+if (!this.ac()) return;
+if (name === 'tap') { this.thud(210, 95, 0.07, 0.22); this.air(1800, 900, 0.018, 0.035, 0, 1.2); }
+else if (name === 'toggle') this.thud(230, 110, 0.06, 0.18);
+else if (name === 'open') this.air(380, 1400, 0.2, 0.07, 0, 0.8);
+else if (name === 'close') this.air(1400, 380, 0.17, 0.06, 0, 0.8);
+else if (name === 'nav') { this.air(600, 2200, 0.14, 0.06, 0, 0.7); this.thud(160, 80, 0.06, 0.12, 0.02); }
+else if (name === 'success') { this.thud(392, 380, 0.22, 0.12, 0, 1200); this.thud(587, 570, 0.32, 0.1, 0.11, 1200); }
+else if (name === 'error') { this.thud(120, 90, 0.11, 0.26, 0, 420); this.thud(110, 82, 0.13, 0.24, 0.13, 420); }
+}
+};
+document.__ulSound = S;
+document.addEventListener('click', (e) => {
+const el = e.target && e.target.closest ? e.target.closest('a,button') : null;
+if (!el) return;
+const forced = el.getAttribute('data-sound');
+if (forced === 'none') return;
+const href = el.tagName === 'A' ? (el.getAttribute('href') || '') : '';
+let kind = forced || 'tap';
+if (!forced) {
+if (el.hasAttribute('aria-controls') || el.hasAttribute('aria-haspopup')) kind = el.getAttribute('aria-expanded') === 'true' ? 'close' : 'open';
+else if (/^Close/.test(el.getAttribute('aria-label') || '')) kind = 'close';
+else if (el.hasAttribute('aria-pressed') || el.hasAttribute('data-th')) kind = 'toggle';
+else if (href && href.charAt(0) !== '#') kind = 'nav';
+}
+S.play(kind);
+// On the exported site, give the sound a moment before the next page loads.
+if (kind === 'nav' && window.UnlockMount && S.on() && !e.defaultPrevented && /\.html(#|$)/.test(href)) {
+e.preventDefault(); setTimeout(() => { window.location.href = href; }, 130);
+}
+}, true);
+}
+try {
+const t = localStorage.getItem('unlock.theme');
+const m = localStorage.getItem('unlock.navMin');
+const next = {};
+if (t && t !== (this.state || {}).theme) next.theme = t;
+if (m !== null && (m === '1') !== !!(this.state || {}).navMin) next.navMin = m === '1';
+try { if (localStorage.getItem('unlock.sound') === 'off') next.sound = 'off'; } catch (e) {}
+if (Object.keys(next).length) this.setState(next);
+} catch (e) {}
+}
+renderVals() {
+const st = this.state || {};
+const t = st.theme || this.props.edition || 'dark';
+const set = (name) => () => { try { localStorage.setItem('unlock.theme', name); } catch (e) {} this.setState({ theme: name }); };
+const TIPS = ["Where do we stand today, and what deserves our attention?", "What do we own, in whose name, and how current is each figure?", "What comes in, from where, and for whom?", "How could our mix have fared in real past crises and good times?", "How much relief could our tax bill absorb?", "What does the evidence say about a private company we are looking at?", "Could our money pay for the years ahead, and in what order should we draw on it?", "If something happened to us, would our people find what they need?", "What is coming up, and what do HMRC and our tax documents say?", "The providers Unlock reads from: Fundsmith, HMRC, Google Calendar and Xero."];
+const NAVNAMES = ["Home", "Your money", "Income", "Portfolio lab", "Tax-efficient investing", "Opportunities", "Retirement planner", "Heartbeat", "Calendar", "Connections"];
+const nav = st.nav || { top: 0, h: 44, tip: TIPS[0], name: NAVNAMES[0], on: false };
+const enter = (i) => (e) => {
+const el = e && e.currentTarget;
+if (!el) return;
+this.setState({ nav: { top: el.offsetTop, h: el.offsetHeight, tip: TIPS[i], name: NAVNAMES[i], on: true, glide: !!(st.nav && st.nav.on) } });
+};
+const out = {
+themeClass: 'ul-' + t,
+isDay: t === 'day', isNight: t === 'night', isClassic: t === 'classic', isDark: t === 'dark',
+setDay: set('day'), setNight: set('night'), setClassic: set('classic'), setDark: set('dark'),
+pillTop: nav.top + 'px', pillH: nav.h + 'px', tipTop: (nav.top + nav.h / 2) + 'px',
+navOp: nav.on ? 1 : 0, pillTrans: nav.glide ? 'top .32s cubic-bezier(.22,1,.36,1), height .32s cubic-bezier(.22,1,.36,1), opacity .18s ease' : 'opacity .12s ease', tipName: nav.name,
+navMin: !!st.navMin, navMinClass: st.navMin ? 'nav-min' : '', navToggleLabel: st.navMin ? 'Show the full menu' : 'Show icons only',
+toggleNavMin: () => { try { localStorage.setItem('unlock.navMin', st.navMin ? '0' : '1'); } catch (e) {} this.setState({ navMin: !st.navMin, nav: Object.assign({}, nav, { on: false }) }); }, tipShift: '0px', tipText: nav.tip,
+navLeave: () => this.setState({ nav: Object.assign({}, nav, { on: false }) })
+};
+for (let i = 0; i < TIPS.length; i++) out['nav' + i] = enter(i);
+
+// shades of the brand green (#00bb77), from deep to pale, skipping the card's own tone
+const GREENS = ['#002e1f', '#004a32', '#006644', '#008556', '#66d6ad', '#a6e8cf', '#d2f4e6', '#f0fcf7'];
+const shade = (i) => GREENS[i];
+const byType = (st.view || 'type') === 'type';
+// synthetic split of the example couple, in £k; joint holdings are counted half each
+const NAMES = ['Your home', 'In Acme Ltd, your share', 'Pensions', 'Shares and funds', 'Buy-to-let', 'VCT, EIS and AIM shares', 'Cash', 'Collectables'];
+const LIQUID = [0, 0, 0, 1, 0, 0, 1, 0];
+const PEOPLE = {
+you: { title: 'you', net: '£2,975,860', debt: 150, holdings: 17, k: [675, 1200, 525, 498, 0, 139, 88, 0], acme: '£1.2m', jointLabel: 'Your half of joint holdings', joint: '£760k' },
+partner: { title: 'your partner', net: '£1,424,020', debt: 330, holdings: 9, k: [675, 0, 303, 281, 420, 0, 50, 25], acme: 'None held', jointLabel: 'Their half of joint holdings', joint: '£760k' },
+both: { title: 'you both', net: '£4,399,880', debt: 480, holdings: 24, k: [1350, 1200, 828, 779, 420, 139, 138, 25], acme: '£1.2m', jointLabel: 'Held jointly, split half each', joint: '£1.52m' }
+};
+const money = (k) => k >= 1000 ? '£' + (k / 1000).toFixed(2).replace(/0$/, '') + 'm' : '£' + k + 'k';
+const person = st.person || 'both';
+const P = PEOPLE[person];
+const gross = P.k.reduce((x, y) => x + y, 0);
+out.who = {
+title: P.title, net: P.net, acme: P.acme, joint: P.joint, jointLabel: P.jointLabel, gross: money(gross),
+summary: money(gross) + ' counted across ' + P.holdings + ' holdings, less ' + money(P.debt) + ' of mortgages and loans.'
+};
+out.netChars = P.net.split('').map((c, i) => {
+const d = /[0-9]/.test(c);
+return { c: c, isDigit: d, isSym: !d, y: d ? 'calc(-1.1em * ' + c + ')' : '0', delay: (i * 35) + 'ms' };
+});
+const news = !!st.news;
+out.newsOpen = news; out.newsHidden = !news;
+out.newsX = news ? '0' : '100%'; out.newsVis = news ? 'visible' : 'hidden';
+out.newsScrim = news ? 1 : 0; out.newsPointer = news ? 'auto' : 'none';
+out.openNews = () => this.setState({ news: true, learn: false, ask: false });
+out.learnOpen = !!st.learn;
+out.openLearn = () => this.setState({ learn: true, news: false, ask: false });
+out.askOpen = !!st.ask;
+out.askAnswered = !!st.askAnswered;
+out.openAsk = () => this.setState({ ask: true, news: false, learn: false });
+out.closeAsk = () => this.setState({ ask: false });
+out.askFirst = () => this.setState({ askAnswered: true });
+out.closeLearn = () => this.setState({ learn: false });
+out.closeNews = () => this.setState({ news: false });
+const user = !!st.user;
+out.userOpen = user; out.userBg = user ? 'var(--surf)' : 'transparent'; out.userChev = user ? '0deg' : '180deg';
+out.toggleUser = () => this.setState({ user: !st.user });
+out.closeUser = () => this.setState({ user: false });
+const pickP = (name) => () => this.setState({ person: name, part: null });
+[['You', 'you'], ['Partner', 'partner'], ['Both', 'both']].forEach(([K, name]) => {
+const on = person === name;
+out['is' + K] = on; out['pick' + K] = pickP(name);
+out['bg' + K] = on ? '#0d0d0d' : 'transparent'; out['fg' + K] = on ? '#ffffff' : '#0d0d0d';
+});
+const pct = (k) => Math.round(k / gross * 1000) / 10;
+const TYPE = NAMES.map((n, i) => [n, money(P.k[i]), pct(P.k[i]), LIQUID[i], P.k[i], i]).filter((r) => r[4] > 0);
+const liq = P.k.reduce((x, k, i) => x + (LIQUID[i] ? k : 0), 0);
+const LIQ = [['Could be sold within days', money(liq), pct(liq), 1, liq, 0], ['Slower to sell', money(gross - liq), pct(gross - liq), 0, gross - liq, 6]];
+const rows = byType ? TYPE : LIQ;
+const act = (typeof st.part === 'number' && st.part < rows.length) ? st.part : null;
+out.parts = rows.map((r, i) => {
+const fill = shade(r[5]);
+return {
+name: r[0], value: r[1], pct: r[2].toFixed(1) + '%',
+width: 'calc(' + r[2] + '% - 3px)', fill: fill,
+opacity: act === null || act === i ? 1 : 0.28,
+rowBg: act === i ? 'rgba(13,13,13,0.1)' : 'transparent',
+rowOp: act === null || act === i ? 1 : 0.55,
+on: () => this.setState({ part: i })
+};
+});
+const biggest = rows.reduce((m, r, i) => r[4] > rows[m][4] ? i : m, 0);
+const shown = act === null ? (byType ? biggest : 0) : act;
+const lead = rows[shown];
+out.readName = act === null ? (byType ? 'Largest part: ' + lead[0] : lead[0]) : lead[0];
+out.readValue = lead[1];
+out.readPct = lead[2].toFixed(1) + '% of ' + money(gross);
+out.meterLabel = 'What is counted, in pounds: ' + rows.map((r) => r[0] + ' ' + r[1]).join(', ');
+out.clearPart = () => this.setState({ part: null });
+const AL = [
+['i.', 'Your plan draws on the home from 88.', 'In this illustration, drawing in a different order (inheritance tax first) also lasts to 95 and could leave £2.18m instead of £686k.', 'Retirement planner'],
+['ii.', 'Cash and bonds are 6% of what you can invest.', 'A typical Retirement Planner holds 41%; the blend you built holds about 34%.', 'Portfolio lab'],
+['iii.', 'Four holdings are missing a purchase date or cost.', 'Tax and capital-gains figures for them are estimates until they are added.', 'Your money'],
+['iv.', 'One contact is still to test.', 'Your son’s contact details have not been checked yet.', 'Heartbeat']
+];
+const open = !!st.stack;
+out.alerts = AL.map((a, i) => ({
+num: a[0], title: a[1], desc: a[2], tool: a[3], label: 'Open ' + a[3] + ': ' + a[1],
+y: (open ? i * 76 : i * 10) + 'px',
+h: open ? '70px' : '96px',
+lines: open ? 1 : 2,
+scale: open ? 1 : (1 - i * 0.05).toFixed(2),
+opacity: open || i === 0 ? 1 : Math.max(0.35, 1 - i * 0.22).toFixed(2),
+textOp: open || i === 0 ? 1 : 0,
+z: 10 - i,
+shadow: open ? '0 10px 28px rgba(0,0,0,0.28)' : (i === 0 ? '0 6px 18px rgba(0,0,0,0.18)' : 'none')
+}));
+out.openStack = () => { if (!st.stack) this.setState({ stack: true }); };
+out.closeStack = () => this.setState({ stack: false });
+out.stackHint = open ? 'Each one opens the tool it came from.' : 'Point at the stack, or press Tab, to see all four.';
+out.byType = byType; out.byLiquid = !byType;
+out.typeBg = byType ? '#0d0d0d' : 'transparent'; out.typeFg = byType ? '#ffffff' : '#0d0d0d';
+out.liqBg = byType ? 'transparent' : '#0d0d0d'; out.liqFg = byType ? '#0d0d0d' : '#ffffff';
+out.showType = () => this.setState({ view: 'type', part: null });
+out.showLiquid = () => this.setState({ view: 'liquid', part: null });
+const snd = st.sound !== 'off';
+out.soundOn = snd; out.soundOff = !snd;
+out.soundOnBg = snd ? 'var(--inv-bg)' : 'transparent'; out.soundOnFg = snd ? 'var(--inv-text)' : 'var(--text)';
+out.soundOffBg = snd ? 'transparent' : 'var(--inv-bg)'; out.soundOffFg = snd ? 'var(--text)' : 'var(--inv-text)';
+const setSnd = (v) => () => { try { localStorage.setItem('unlock.sound', v); } catch (e) {} this.setState({ sound: v }); if (v === 'on' && document.__ulSound) document.__ulSound.play('toggle', true); };
+out.soundOnSet = setSnd('on'); out.soundOffSet = setSnd('off');
+return out;
+}
+}
+UnlockMount(Component, {"edition": "dark"});
+</script>
+</body>
+</html>
