@@ -24,7 +24,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--green-text);outline
 .ul-tip{transition:opacity .12s ease}
 .ul-btn:hover{background:var(--surf) !important;border-color:var(--text) !important;color:var(--text);font-weight:600}
 .ul-card:hover{border-color:var(--mark) !important;transform:translateY(-2px)}
-.ul-hero-btn{transition:background-color .15s ease}.ul-hero-btn:hover{color:#ffffff;background:#000000 !important;font-weight:600}
+.ul-hero-btn{transition:background-color .15s ease}.ul-hero-btn:hover{color:var(--inv-text) !important;background:#000000 !important;font-weight:600}.ul-night .ul-hero-btn:hover,.ul-dark .ul-hero-btn:hover{background:#ffffff !important}
 .ul-th{background:transparent;color:var(--text)}
 .ul-th:hover{background:var(--surf)}
 .ul-day [data-th="day"],.ul-night [data-th="night"],.ul-classic [data-th="classic"],.ul-dark [data-th="dark"]{background:var(--inv-bg);color:var(--inv-text)}
@@ -242,7 +242,7 @@ News
 </header>
 
 <!-- ROW A: the figure, with how it is held -->
-<section aria-label="Net worth" class="ul-hero-card" style="box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 28px 48px; padding: 28px; background: #7ab59a; color: #0d0d0d; border-radius: var(--r-card); padding-top: 24px; padding-right: 24px; padding-bottom: 24px; padding-left: 24px">
+<section aria-label="Net worth" class="ul-hero-card" style="box-sizing: border-box; display: flex; flex-wrap: wrap; gap: 28px 48px; padding: 28px; background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-card); padding-top: 24px; padding-right: 24px; padding-bottom: 24px; padding-left: 24px">
 
 <div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px">
@@ -252,7 +252,7 @@ News
 As recorded, 13 Nov 2026
 </span>
 </div>
-<div role="group" aria-label="Whose picture" style="align-self: flex-start; display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; background: rgba(13,13,13,0.12); border-radius: var(--r-card); width: 432px">
+<div role="group" aria-label="Whose picture" style="align-self: flex-start; display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; background: var(--surf); border-radius: var(--r-card); width: 432px">
 <button type="button" aria-pressed="{{isYou}}" onClick="{{pickYou}}" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 0 12px; background: {{bgYou}}; color: {{fgYou}}; border: 0; border-radius: var(--r-ctl); font-size: 14px; width: 125px; justify-content: center">You <span style="font-weight: 500">£2.98m</span></button>
 <button type="button" aria-pressed="{{isPartner}}" onClick="{{pickPartner}}" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 0 12px; background: {{bgPartner}}; color: {{fgPartner}}; border: 0; border-radius: var(--r-ctl); font-size: 14px; height: 19px; width: 142px; justify-content: center">Partner <span style="font-weight: 500">£1.42m</span></button>
 <button type="button" aria-pressed="{{isBoth}}" onClick="{{pickBoth}}" style="display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 0 12px; background: {{bgBoth}}; color: {{fgBoth}}; border: 0; border-radius: var(--r-ctl); font-size: 14px; width: 156px; justify-content: center">You both <span style="font-weight: 500">£4.4m</span></button>
@@ -268,12 +268,12 @@ As recorded, 13 Nov 2026
 </sc-for>
 </div>
 <p style="margin: 0; font-size: 16px; line-height: 1.5; max-width: 36ch; width: 437px">{{who.summary}}</p>
-<div style="display: flex; flex-direction: column; border-top: 1px solid rgba(13,13,13,0.25)">
-<div style="display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(13,13,13,0.25); font-size: 15px"><span>Acme Ltd, counted at your share</span><span>{{who.acme}}</span></div>
-<div style="display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid rgba(13,13,13,0.25); font-size: 15px"><span>{{who.jointLabel}}</span><span>{{who.joint}}</span></div>
+<div style="display: flex; flex-direction: column; border-top: 1px solid var(--line)">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px"><span>Acme Ltd, counted at your share</span><span>{{who.acme}}</span></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px"><span>{{who.jointLabel}}</span><span>{{who.joint}}</span></div>
 <div style="display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; font-size: 15px"><span>The Family Trust</span><span>Not counted</span></div>
 </div>
-<a class="ul-hero-btn" href="YourMoney.html" style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; background: #0d0d0d; color: #ffffff; border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none">
+<a class="ul-hero-btn" href="YourMoney.html" style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px; background: var(--inv-bg); color: var(--inv-text); border-radius: var(--r-ctl); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; text-decoration: none">
 See what is counted
 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
 </a>
@@ -282,7 +282,7 @@ See what is counted
 <div style="flex: 1.35 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
 <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px">
 <h2 style="margin: 0; font-size: 22px; font-family: var(--font-head); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em">How it is held<span>.</span></h2>
-<div role="group" aria-label="View" style="display: flex; gap: 4px; padding: 4px; background: rgba(13,13,13,0.12); border-radius: var(--r-card)">
+<div role="group" aria-label="View" style="display: flex; gap: 4px; padding: 4px; background: var(--surf); border-radius: var(--r-card)">
 <button type="button" aria-pressed="{{byType}}" onClick="{{showType}}" style="min-height: 40px; padding: 0 14px; background: {{typeBg}}; color: {{typeFg}}; border: 0; border-radius: var(--r-ctl); font-size: 14px">By type</button>
 <button type="button" aria-pressed="{{byLiquid}}" onClick="{{showLiquid}}" style="min-height: 40px; padding: 0 14px; background: {{liqBg}}; color: {{liqFg}}; border: 0; border-radius: var(--r-ctl); font-size: 14px">Liquid or not</button>
 </div>
@@ -303,7 +303,7 @@ See what is counted
 
 <div onMouseLeave="{{clearPart}}" style="display: flex; flex-direction: column">
 <sc-for list="{{parts}}" as="part" hint-placeholder-count="8">
-<button type="button" onMouseEnter="{{part.on}}" onFocus="{{part.on}}" onBlur="{{clearPart}}" style="display: grid; grid-template-columns: 10px minmax(0, 1fr) 72px 52px; gap: 12px; align-items: center; min-height: 30px; padding: 0 8px; margin: 0 -8px; background: {{part.rowBg}}; color: #0d0d0d; border: 0; border-radius: var(--r-sm); text-align: left; font-size: 15px; opacity: {{part.rowOp}}; transition: opacity .18s ease, background-color .18s ease">
+<button type="button" onMouseEnter="{{part.on}}" onFocus="{{part.on}}" onBlur="{{clearPart}}" style="display: grid; grid-template-columns: 10px minmax(0, 1fr) 72px 52px; gap: 12px; align-items: center; min-height: 30px; padding: 0 8px; margin: 0 -8px; background: {{part.rowBg}}; color: var(--text); border: 0; border-radius: var(--r-sm); text-align: left; font-size: 15px; opacity: {{part.rowOp}}; transition: opacity .18s ease, background-color .18s ease">
 <span aria-hidden="true" style="width: 10px; height: 10px; box-sizing: border-box; background: {{part.fill}}; border: 1px solid rgba(13,13,13,0.45); border-radius: var(--r-pill)"></span>
 <span>{{part.name}}</span>
 <span style="text-align: right; font-weight: 500">{{part.value}}</span>
@@ -690,8 +690,11 @@ navLeave: () => this.setState({ nav: Object.assign({}, nav, { on: false }) })
 };
 for (let i = 0; i < TIPS.length; i++) out['nav' + i] = enter(i);
 
-// shades of the brand green (#00bb77), from deep to pale, skipping the card's own tone
-const GREENS = ['#002e1f', '#004a32', '#006644', '#008556', '#66d6ad', '#a6e8cf', '#d2f4e6', '#f0fcf7'];
+// shades of the brand green (#00bb77), from deep to pale; light cards get a deeper run and dark cards a paler one,
+// so every shade stays at least 3:1 against var(--card) in its theme
+const GREENS = (t === 'night' || t === 'dark')
+? ['#389f6d', '#4aaf7c', '#5cbf8b', '#6dcf9b', '#8cdcaf', '#aee7c6', '#d0f2dd', '#f1fcf5']
+: ['#062e1b', '#083c25', '#0b4b2f', '#0d5a39', '#0e6a43', '#0d7a4d', '#178a59', '#2f9967'];
 const shade = (i) => GREENS[i];
 const byType = (st.view || 'type') === 'type';
 // synthetic split of the example couple, in £k; joint holdings are counted half each
@@ -736,7 +739,7 @@ const pickP = (name) => () => this.setState({ person: name, part: null });
 [['You', 'you'], ['Partner', 'partner'], ['Both', 'both']].forEach(([K, name]) => {
 const on = person === name;
 out['is' + K] = on; out['pick' + K] = pickP(name);
-out['bg' + K] = on ? '#0d0d0d' : 'transparent'; out['fg' + K] = on ? '#ffffff' : '#0d0d0d';
+out['bg' + K] = on ? 'var(--inv-bg)' : 'transparent'; out['fg' + K] = on ? 'var(--inv-text)' : 'var(--text)';
 });
 const pct = (k) => Math.round(k / gross * 1000) / 10;
 const TYPE = NAMES.map((n, i) => [n, money(P.k[i]), pct(P.k[i]), LIQUID[i], P.k[i], i]).filter((r) => r[4] > 0);
@@ -750,7 +753,7 @@ return {
 name: r[0], value: r[1], pct: r[2].toFixed(1) + '%',
 width: 'calc(' + r[2] + '% - 3px)', fill: fill,
 opacity: act === null || act === i ? 1 : 0.28,
-rowBg: act === i ? 'rgba(13,13,13,0.1)' : 'transparent',
+rowBg: act === i ? 'var(--surf)' : 'transparent',
 rowOp: act === null || act === i ? 1 : 0.55,
 on: () => this.setState({ part: i })
 };
@@ -786,8 +789,8 @@ out.openStack = () => { if (!st.stack) this.setState({ stack: true }); };
 out.closeStack = () => this.setState({ stack: false });
 out.stackHint = open ? 'Each one opens the tool it came from.' : 'Point at the stack, or press Tab, to see all four.';
 out.byType = byType; out.byLiquid = !byType;
-out.typeBg = byType ? '#0d0d0d' : 'transparent'; out.typeFg = byType ? '#ffffff' : '#0d0d0d';
-out.liqBg = byType ? 'transparent' : '#0d0d0d'; out.liqFg = byType ? '#0d0d0d' : '#ffffff';
+out.typeBg = byType ? 'var(--inv-bg)' : 'transparent'; out.typeFg = byType ? 'var(--inv-text)' : 'var(--text)';
+out.liqBg = byType ? 'transparent' : 'var(--inv-bg)'; out.liqFg = byType ? 'var(--text)' : 'var(--inv-text)';
 out.showType = () => this.setState({ view: 'type', part: null });
 out.showLiquid = () => this.setState({ view: 'liquid', part: null });
 return out;
