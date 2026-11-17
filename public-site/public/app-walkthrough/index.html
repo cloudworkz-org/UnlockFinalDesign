@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unlock · Opening</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+body{margin:0}
+@keyframes sp-in{0%{opacity:0;transform:scale(.12)}20%{opacity:1;transform:scale(.12)}34%{opacity:1;transform:scale(.12)}62%{opacity:1;transform:scale(1)}100%{opacity:1;transform:scale(1)}}
+@keyframes sp-unlock{0%,66%{transform:translateX(42px)}80%,100%{transform:translateX(0)}}
+@keyframes sp-hint{0%,84%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:none}}
+.sp-logo{animation:sp-in 5.2s cubic-bezier(.16,1,.3,1) both;transform-origin:50% 50%}
+.sp-shackle{transform-box:fill-box;transform-origin:15% 100%;animation:sp-unlock 5.2s cubic-bezier(.16,1,.3,1) both}
+.sp-hint{animation:sp-hint 5.6s cubic-bezier(.16,1,.3,1) both}
+.sp-link:focus-visible{outline:3px solid #0d0d0d;outline-offset:-12px}
+@media (prefers-reduced-motion:reduce){.sp-wrap,.sp-logo,.sp-shackle,.sp-hint{animation:none}}
+</style>
+</head>
+<body>
+<div id="dc-root"></div>
+<template id="dc-template">
+
+<a class="sp-link" href="Login.html" data-sound="nav" data-autonext="6000" aria-label="Unlock. Continue to sign in" style="min-height: 100vh; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 48px; padding: 48px 24px; background: #00BB77; color: #0D0D0D; text-decoration: none; font-family: 'Aeonik', 'Inter', system-ui, sans-serif">
+<div class="sp-wrap" style="width: min(1240px, 88vw)">
+<svg role="img" aria-label="Unlock" class="sp-logo" viewBox="0 -90 1910 592" style="display: block; width: 100%; height: auto; overflow: visible"><path d="M186.058 376.199C186.058 408.759 169.987 423.926 135.449 423.926C100.91 423.926 84.8396 408.759 84.8396 376.199V6.84961H0V378.288C0 455.664 50.6433 501.85 135.483 501.85C220.322 501.85 271 455.698 271 378.356V6.84961H186.092V376.199H186.058Z" style="fill: #F5F7F0"></path><path d="M542.16 219.372C542.16 255.112 542.81 284.245 543.735 307.558C536.1 286.915 526.583 261.822 514.977 232.21L426.034 6.84966H339.625V494.815H423.741V279.486C423.741 245.287 422.885 216.394 421.687 192.772C429.8 214.271 439.592 239.707 450.958 268.086L539.935 494.747H625.625V6.81543H542.194V219.372H542.16Z" style="fill: #F5F7F0"></path><path d="M782.589 6.91797H697.852V494.918H915.852V418.493H782.589V6.91797Z" style="fill: #F5F7F0"></path><path d="M970.284 251V378.452C970.284 455.828 1020.62 502 1104.9 502C1189.18 502 1240.23 455.828 1240.23 378.452V251H970.284Z" style="fill: #F5F7F0"></path><path d="M1104.97 423.46C1070.95 423.46 1054.43 408.081 1054.43 376.431V251H1156.16V376.431C1156.16 408.081 1139.39 423.46 1104.97 423.46Z" style="fill: #00BB77"></path><g class="sp-shackle"><path d="M1198.18 250.966V123.548C1198.18 46.1719 1147.57 0 1062.84 0C978.12 0 928.23 46.1719 928.23 123.548V251H1012.37V125.637C1012.37 93.0632 1028.42 77.8895 1062.91 77.8895C1097.4 77.8895 1114.1 93.0632 1114.1 125.637V251H1198.18V250.966Z" style="fill: #F5F7F0"></path></g><path d="M1426.68 0C1342.38 0 1292.04 46.1719 1292.04 123.548V378.452C1292.04 455.828 1342.38 502 1426.68 502C1510.98 502 1562.04 455.828 1562.04 378.452V327.417H1477.95V376.363C1477.95 408.046 1461.18 423.46 1426.75 423.46C1392.32 423.46 1376.2 408.492 1376.2 376.363V125.637C1376.2 93.0632 1392.25 77.8895 1426.75 77.8895C1461.25 77.8895 1477.95 93.0632 1477.95 125.637V175.988H1562.04V123.548C1562.04 46.1719 1511.45 0 1426.68 0Z" style="fill: #F5F7F0"></path><path d="M1795.51 243.626L1902.99 6.84961H1810.68L1706.17 244.927L1814.1 494.85H1909.17L1795.51 243.626Z" style="fill: #F5F7F0"></path><path d="M1703.51 6.84961H1618.51V494.85H1703.51V6.84961Z" style="fill: #F5F7F0"></path></svg>
+</div>
+<span class="sp-hint" style="font-size: 14px; letter-spacing: 0.25em; text-transform: uppercase; color: #0D0D0D">Continue</span>
+</a>
+</template>
+<script src="unlock-runtime.js"></script>
+<script>
+class Component extends DCLogic {
+componentDidMount() {
+if (!document.__ulSound) {
+const S = {
+ctx: null, noise: null,
+on() { try { return localStorage.getItem('unlock.sound') !== 'off'; } catch (e) { return true; } },
+ac() {
+if (!this.ctx) { const A = window.AudioContext || window.webkitAudioContext; if (!A) return null; this.ctx = new A(); }
+if (this.ctx.state === 'suspended') this.ctx.resume();
+if (!this.noise) { const c = this.ctx, n = c.createBuffer(1, c.sampleRate * 0.4, c.sampleRate), d = n.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; this.noise = n; }
+return this.ctx;
+},
+// a muted body: a falling sine through a low filter
+thud(f1, f2, dur, vol, delay, cut) {
+const c = this.ctx, t = c.currentTime + (delay || 0);
+const o = c.createOscillator(), g = c.createGain(), lp = c.createBiquadFilter();
+lp.type = 'lowpass'; lp.frequency.value = cut || 700; lp.Q.value = 0.4;
+o.type = 'sine'; o.frequency.setValueAtTime(f1, t); o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + 0.003); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+o.connect(lp); lp.connect(g); g.connect(c.destination); o.start(t); o.stop(t + dur + 0.03);
+},
+// air: filtered noise, for panels and page moves
+air(fFrom, fTo, dur, vol, delay, q) {
+const c = this.ctx, t = c.currentTime + (delay || 0);
+const s = c.createBufferSource(), bp = c.createBiquadFilter(), g = c.createGain();
+s.buffer = this.noise; bp.type = 'bandpass'; bp.Q.value = q || 0.9;
+bp.frequency.setValueAtTime(fFrom, t); bp.frequency.exponentialRampToValueAtTime(fTo, t + dur);
+g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(vol, t + dur * 0.35); g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+s.connect(bp); bp.connect(g); g.connect(c.destination); s.start(t); s.stop(t + dur + 0.03);
+},
+play(name, force) {
+if (!force && !this.on()) return;
+if (!this.ac()) return;
+if (name === 'tap') { this.thud(210, 95, 0.07, 0.22); this.air(1800, 900, 0.018, 0.035, 0, 1.2); }
+else if (name === 'toggle') this.thud(230, 110, 0.06, 0.18);
+else if (name === 'open') this.air(380, 1400, 0.2, 0.07, 0, 0.8);
+else if (name === 'close') this.air(1400, 380, 0.17, 0.06, 0, 0.8);
+else if (name === 'nav') { this.air(600, 2200, 0.14, 0.06, 0, 0.7); this.thud(160, 80, 0.06, 0.12, 0.02); }
+else if (name === 'success') { this.thud(392, 380, 0.22, 0.12, 0, 1200); this.thud(587, 570, 0.32, 0.1, 0.11, 1200); }
+else if (name === 'error') { this.thud(120, 90, 0.11, 0.26, 0, 420); this.thud(110, 82, 0.13, 0.24, 0.13, 420); }
+}
+};
+document.__ulSound = S;
+document.addEventListener('click', (e) => {
+const el = e.target && e.target.closest ? e.target.closest('a,button') : null;
+if (!el) return;
+const forced = el.getAttribute('data-sound');
+if (forced === 'none') return;
+const href = el.tagName === 'A' ? (el.getAttribute('href') || '') : '';
+let kind = forced || 'tap';
+if (!forced) {
+if (el.hasAttribute('aria-controls') || el.hasAttribute('aria-haspopup')) kind = el.getAttribute('aria-expanded') === 'true' ? 'close' : 'open';
+else if (/^Close/.test(el.getAttribute('aria-label') || '')) kind = 'close';
+else if (el.hasAttribute('aria-pressed') || el.hasAttribute('data-th')) kind = 'toggle';
+else if (href && href.charAt(0) !== '#') kind = 'nav';
+}
+S.play(kind);
+// On the exported site, give the sound a moment before the next page loads.
+if (kind === 'nav' && window.UnlockMount && S.on() && !e.defaultPrevented && /\.html(#|$)/.test(href)) {
+e.preventDefault(); setTimeout(() => { window.location.href = href; }, 130);
+}
+}, true);
+}
+// In the exported site, move on to sign-in by itself once the logo has opened.
+if (window.UnlockMount) {
+const a = document.querySelector('[data-autonext]');
+if (a) setTimeout(() => { window.location.href = a.getAttribute('href'); }, +a.getAttribute('data-autonext'));
+}
+}
+renderVals() { return {}; }
+}
+UnlockMount(Component, {});
+</script>
+</body>
+</html>
