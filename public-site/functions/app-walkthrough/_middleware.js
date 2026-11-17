@@ -14,8 +14,8 @@
 // -----------------------------------------------------------------------------
 
 const USERNAME = "unlock";
-const SALT_HEX = "8715b79668e7689f72e330e5e52f04e6";
-const HASH_HEX = "23443ea9b0dbfe5eda7ad0ab5f7f42fafaf8d3419fa2af8a23d91d5858b7d346";
+const SALT_HEX = "e769cd822297efcedd0080bbf553b6f8";
+const HASH_HEX = "a6f2c5ac26bffd2a4e9f14574bcee7671fec69671aeb98ad5f97c7e80ad92f2a";
 const ITERATIONS = 100000;
 const MAX_PASSWORD_BYTES = 1024; // refuse absurdly long input before doing any work
 
