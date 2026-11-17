@@ -1,107 +1,87 @@
 // functions/api/certify.js
 // -----------------------------------------------------------------------------
 // Called by the gate page when a visitor completes the eligibility statement.
-// Validates the declared type, issues a signed (HMAC-SHA256) cookie, and
-// returns the safe same-site destination to redirect to.
+// Writes an audit record to D1, then issues a signed (HMAC-SHA256) cookie that
+// is valid for a FIXED 12 months from now (never refreshed on later visits).
 //
-// POST JSON body: { "type": "hnw" | "sophisticated" | "self-sophisticated",
-//                   "next": "/gated/..." }
+// POST JSON body: { type, statementVersion, next }
 //
-// Requires env var: SELFCERT_SECRET
+// Needs on the Pages project:
+//   secret  SELFCERT_SECRET   (signing key; Cloudflare secret, not in repo)
+//   D1      CERT_DB           (see d1/schema.sql)
 // -----------------------------------------------------------------------------
 
-const COOKIE_NAME = "unlock_selfcert";
-const TTL_DAYS = 30; // how long a certification is honoured before re-prompting
+import {
+  COOKIE_NAME, STATEMENT_VERSION, TTL_MS, CATEGORIES, signToken, safeNext,
+} from "../_lib/cert.js";
 
-export async function onRequestPost(context) {
-  const { request, env } = context;
-
+export async function onRequestPost({ request, env }) {
   let data;
   try {
     data = await request.json();
   } catch {
     return json({ error: "invalid_body" }, 400);
   }
-
-  const allowed = ["hnw", "sophisticated", "self-sophisticated"];
-  if (!allowed.includes(data.type)) {
+  if (!data || !CATEGORIES.includes(data.type)) {
     return json({ error: "invalid_type" }, 400);
   }
-  if (!env.SELFCERT_SECRET) {
+  // The page must be showing the current wording; otherwise the audit record
+  // would claim a statement the visitor did not see. Page reload fixes it.
+  if (data.statementVersion !== STATEMENT_VERSION) {
+    return json({ error: "stale_statement" }, 409);
+  }
+  if (!env.SELFCERT_SECRET || !env.CERT_DB) {
     return json({ error: "server_misconfigured" }, 500);
   }
 
   const now = Date.now();
-  const exp = now + TTL_DAYS * 24 * 60 * 60 * 1000;
-  const token = await sign({ type: data.type, iat: now, exp }, env.SELFCERT_SECRET);
+  const exp = now + TTL_MS;
 
-  // ---------------------------------------------------------------------------
-  // OPTIONAL COMPLIANCE AUDIT LOG.
-  // For a defensible record of who certified what and when, persist an entry
-  // here — e.g. Cloudflare KV / D1, or your Supabase. Capture: type, timestamp,
-  // CF-Connecting-IP, user-agent. Confirm retention/wording with your framework.
-  //
-  // await env.SELFCERT_LOG.put(`${now}-${crypto.randomUUID()}`, JSON.stringify({
-  //   type: data.type,
-  //   at: new Date(now).toISOString(),
-  //   ip: request.headers.get("CF-Connecting-IP"),
-  //   ua: request.headers.get("User-Agent"),
-  // }));
-  // ---------------------------------------------------------------------------
+  // Audit first: if the record cannot be kept, no certification is issued.
+  try {
+    await env.CERT_DB.prepare(
+      `INSERT INTO certifications
+         (id, certified_at, category, statement_version, ip, user_agent, expires_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`
+    ).bind(
+      crypto.randomUUID(),
+      new Date(now).toISOString(),
+      data.type,
+      STATEMENT_VERSION,
+      request.headers.get("CF-Connecting-IP"),
+      (request.headers.get("User-Agent") || "").slice(0, 512),
+      new Date(exp).toISOString()
+    ).run();
+  } catch {
+    return json({ error: "audit_failed" }, 500);
+  }
 
-  const next = safeNext(data.next);
+  const token = await signToken(
+    { type: data.type, v: STATEMENT_VERSION, iat: now, exp },
+    env.SELFCERT_SECRET
+  );
   const cookie = [
     `${COOKIE_NAME}=${encodeURIComponent(token)}`,
     "Path=/",
     "HttpOnly",
     "Secure",
     "SameSite=Lax",
-    `Max-Age=${TTL_DAYS * 24 * 60 * 60}`,
+    `Max-Age=${Math.floor(TTL_MS / 1000)}`,
   ].join("; ");
 
-  return new Response(JSON.stringify({ ok: true, next }), {
+  return new Response(JSON.stringify({ ok: true, next: safeNext(data.next) }), {
     status: 200,
-    headers: { "Content-Type": "application/json", "Set-Cookie": cookie },
+    headers: {
+      "Content-Type": "application/json",
+      "Cache-Control": "no-store",
+      "Set-Cookie": cookie,
+    },
   });
-}
-
-function safeNext(next) {
-  // Only same-site relative paths; default to the gated landing.
-  if (typeof next === "string" && next.startsWith("/") && !next.startsWith("//")) {
-    return next;
-  }
-  return "/investors/pitch/";
-}
-
-async function sign(payload, secret) {
-  const body = b64ToB64url(btoa(JSON.stringify(payload)));
-  const sig = await hmac(body, secret);
-  return `${body}.${sig}`;
-}
-
-async function hmac(message, secret) {
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"]
-  );
-  const sigBuf = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    new TextEncoder().encode(message)
-  );
-  return b64ToB64url(btoa(String.fromCharCode(...new Uint8Array(sigBuf))));
 }
 
 function json(obj, status = 200) {
   return new Response(JSON.stringify(obj), {
     status,
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "Cache-Control": "no-store" },
   });
-}
-
-function b64ToB64url(s) {
-  return s.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
