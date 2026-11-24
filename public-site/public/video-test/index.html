@@ -5,6 +5,9 @@
   NEVER MERGE this branch. Delete the branch and its preview after Roy's iPhone check.
   clip.mp4 is a generated test pattern (ffmpeg testsrc2, silent audio track):
   5 seconds, 1280x720, H.264 High 4:2:0, AAC, index at the front (faststart).
+  poster.jpg is the frame at 1 second: the player shows it before play, and the og: tags
+  use it as the link-preview thumbnail (Roy, 18:00 IST: "the thumbnail not showing when
+  sent to whatsapp as link").
 -->
 <html lang="en">
 <head>
@@ -12,6 +15,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Video test</title>
+  <meta name="description" content="A 5-second test clip, to check whether video plays on a preview link.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Video test">
+  <meta property="og:description" content="A 5-second test clip, to check whether video plays on a preview link.">
+  <meta property="og:url" content="https://video-test.unlockdd-site.pages.dev/video-test/">
+  <meta property="og:image" content="https://video-test.unlockdd-site.pages.dev/video-test/poster.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="A still from the test clip: coloured test bars">
+  <meta name="twitter:card" content="summary_large_image">
   <style>
     body { margin: 0; padding: 24px 16px; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; background: #fff; color: #111; }
     main { max-width: 720px; margin: 0 auto; }
@@ -23,7 +37,7 @@
   <main>
     <h1>Video test</h1>
     <p>A 5-second test clip, to check whether video plays on a preview link. It isn't part of the site.</p>
-    <video controls playsinline preload="metadata" src="clip.mp4" width="1280" height="720"></video>
+    <video controls playsinline preload="metadata" src="clip.mp4" poster="poster.jpg" width="1280" height="720"></video>
     <p id="status" role="status">Player: waiting. Tap play.</p>
     <p><a href="clip.mp4">Open the clip on its own</a></p>
   </main>
