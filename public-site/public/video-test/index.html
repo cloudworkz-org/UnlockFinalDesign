@@ -1,0 +1,45 @@
+<!doctype html>
+<!--
+  Throwaway test page: does a video play on a preview link?
+  Roy, 24 Nov 2026, 17:51 IST: "yes push a demo clip".
+  NEVER MERGE this branch. Delete the branch and its preview after Roy's iPhone check.
+  clip.mp4 is a generated test pattern (ffmpeg testsrc2, silent audio track):
+  5 seconds, 1280x720, H.264 High 4:2:0, AAC, index at the front (faststart).
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Video test</title>
+  <style>
+    body { margin: 0; padding: 24px 16px; font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; background: #fff; color: #111; }
+    main { max-width: 720px; margin: 0 auto; }
+    video { display: block; width: 100%; height: auto; background: #000; border-radius: 8px; }
+    #status { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Video test</h1>
+    <p>A 5-second test clip, to check whether video plays on a preview link. It isn't part of the site.</p>
+    <video controls playsinline preload="metadata" src="clip.mp4" width="1280" height="720"></video>
+    <p id="status" role="status">Player: waiting. Tap play.</p>
+    <p><a href="clip.mp4">Open the clip on its own</a></p>
+  </main>
+  <script>
+    (function () {
+      var v = document.querySelector('video');
+      var s = document.getElementById('status');
+      function show(t) { s.textContent = 'Player: ' + t; }
+      v.addEventListener('loadedmetadata', function () { show('loaded, ' + v.duration.toFixed(1) + ' seconds. Tap play.'); });
+      v.addEventListener('playing', function () { show('playing'); });
+      v.addEventListener('ended', function () { show('played to the end'); });
+      v.addEventListener('error', function () {
+        var e = v.error;
+        show('error ' + (e ? e.code : '?') + (e && e.message ? ' (' + e.message + ')' : ''));
+      });
+    })();
+  </script>
+</body>
+</html>
